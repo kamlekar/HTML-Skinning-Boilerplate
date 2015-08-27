@@ -4,11 +4,11 @@
 
 This Boilerplate will be useful for the developers who convert image (PSDs) to HTML (_without any javascript functionality_). 
 
-This Boilerplate uses sass, gulp and gulp-nunjucks-render.
+This Boilerplate uses sass, gulp and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
 
 ###Installation:
 
-This Boilerplate depends on nodejs (_for templating_) and ruby (_for sass_). So, first install nodejs and ruby. After that, open command prompt. `cd` to the `<project directory>` , then run the following codes in command prompt.
+This Boilerplate depends on [nodejs](https://nodejs.org/download/) (_for templating_) and [ruby](https://www.ruby-lang.org/en/downloads/) (_for sass_). So, first install nodejs and ruby. After that, open command prompt. `cd` to the `<project directory>` , then run the following codes in command prompt.
 
     npm install gulp -g
     npm install gulp --save-dev
