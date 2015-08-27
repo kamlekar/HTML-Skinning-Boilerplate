@@ -2,7 +2,7 @@
 
 ##HTML Skinning Boilerplate
 
-This Boilerplate will be useful for the developers who convert image (PSDs) to HTML (_without any javascript functionality_). 
+This Boilerplate will be useful for the developers who convert image (PSDs) to HTML. 
 
 This Boilerplate uses sass, gulp and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
 
