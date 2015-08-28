@@ -2,8 +2,7 @@
 
 ##HTML Skinning Boilerplate
 
-This Boilerplate will be useful for the developers who convert image (PSDs) to HTML. 
-This uses sass, gulp and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
+This Boilerplate will be useful for the developers who convert images (PSDs) to HTML. This uses sass, gulp and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
 
 ###Advantages:
 
@@ -14,8 +13,8 @@ This uses sass, gulp and [gulp-nunjucks-render](https://github.com/carlosl/gulp-
 ###How it is useful?
 
 - The css styles can be written in sass in the mentioned "sass" folder and also the html templates can be written in "templates" folder. 
-- These `.scss` files and `.html` files will be coverted in to `.css` and `.html` files and stored in `site` named directory.
-- Later, you can share the `site` directory with the client which has css and html files.
+- These `.scss` files and `.html` files will be coverted in to `.css` and `.html` files(_like pages_) and stored in `site` named directory.
+- Later, you can share the `site` directory with the client which has css and html files only.
 
 ###How it works?
 
