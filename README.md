@@ -6,6 +6,20 @@ This Boilerplate will be useful for the developers who convert image (PSDs) to H
 
 This Boilerplate uses sass, gulp and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
 
+###How it is useful?
+
+- The css styles can be written in sass in the mentioned "sass" folder and also the html templates can be written in "templates" folder. 
+- These `.scss` files and `.html` files will be coverted in to `.css` and `.html` files and stored in `site` named directory.
+- Later, you can share the `site` directory with the client which has css and html files.
+
+###How it works?
+
+- To write sass, you can refer [sass documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
+- To write in `nunjucks` template, you can refer [nunjucks documentation](https://mozilla.github.io/nunjucks/).
+- The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
+
+> Note: _you can also write css in `.scss` files if you aren't aware of sass and same applies to nunjucks templating. if that is the case, then this boilerplate is not useful for you._
+
 ###Installation:
 
 This Boilerplate depends on [nodejs](https://nodejs.org/download/) (_for templating_) and [ruby](https://www.ruby-lang.org/en/downloads/) (_for sass_). So, first install nodejs and ruby. After that, open command prompt. `cd` to the `<project directory>` , then run the following codes in command prompt.
