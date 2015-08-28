@@ -7,8 +7,8 @@ This uses sass, gulp and [gulp-nunjucks-render](https://github.com/carlosl/gulp-
 
 ###Advantages:
 
-- Obeys [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) concept.
-- No need to run any web server.
+- Obeys [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) concept for both css and html.
+- No need to run any web server (_optional_).
 - Later, you can use the same setup to create a single page application based on nunjucks template engine. (_in that case, don't use gulp_)
 
 ###How it is useful?
@@ -41,5 +41,8 @@ This Boilerplate depends on [nodejs](https://nodejs.org/download/) (_for templat
 - Open another command prompt.
 - `cd` to the `<project directory>`
 - run `sass --watch sass:"site/assets/css" --style expanded`
+
+> **Tip**: If you feel lazy enough to run the above commands every time you start the system, write a batch file.
+
 
 PS: Contributors are welcome :)
