@@ -43,5 +43,7 @@ This Boilerplate depends on [nodejs](https://nodejs.org/download/) (_for templat
 
 > **Tip**: If you feel lazy enough to run the above commands every time you start the system, write a batch file.
 
+Make it more awesome by including svg sprites using [**gulp-svgstore**](https://github.com/w0rm/gulp-svgstore)
+
 
 PS: Contributors are welcome :)
