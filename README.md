@@ -7,15 +7,17 @@ This Boilerplate will be useful for the developers who convert images (PSDs) to 
 ###Advantages:
 
 - Obeys [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) concept for both css and html.
+- Manage all svgs as SVG sprite-sheet.
 - No need to run any web server (_optional_).
 - Later, you can use the same setup to create a single page application based on [nunjucks](https://mozilla.github.io/nunjucks/) template engine. (_in that case, don't use gulp_)
 
 ###How it is useful?
 
-- The css styles can be written in sass in the mentioned "sass" folder and also the html templates can be written in "templates" folder. 
-- These `.scss` files and `.html` files will be coverted in to `.css` and `.html` files(_like pages_) and stored in `site` named directory.
-- This setup can be used to create svg sprite-sheet. (_check gulpfile.js code_).
-- Later, you can share the `site` directory with the client which has css and html files only.
+Suppose, you got a requirement where you just need to develop 5 HTML pages from the provided images by the Designers. There are many common sections which you are copy pasting for each page of HTML files (_let say it is Header_). Later, the client/designer proposed some changes in header part. In that case, you need to change the header part in a page and need to copy paste again in all the 5 pages. 
+
+And if the changes are frequent in all common sections, it is quite common we miss to change the modified section in a page or two, when there are more pages. This boilerplate handles this kind of situations and many more. 
+
+You can also write css faster using sass and create svg sprite-sheet.
 
 ###How it works?
 
@@ -24,7 +26,7 @@ This Boilerplate will be useful for the developers who convert images (PSDs) to 
 - The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
 - Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet.
 
-> Note: _you can also write css in `.scss` files if you aren't aware of sass and same applies to nunjucks templating. if that is the case, then this boilerplate is not useful for you._
+> Note: _you can also write css in `.scss` files if you aren't aware of sass and same applies to nunjucks templating._
 
 ###Installation:
 
