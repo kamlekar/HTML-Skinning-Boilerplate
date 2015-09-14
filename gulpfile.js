@@ -7,7 +7,7 @@ var path = require('path');
 
 
 // svg group folder names present in "bundle-svgs" folder
-var svgs = ['xyz-sprt', 'abc-sprt', 'pqrs-sprt'];
+var svgs = ['xyz-sprt', 'abc-sprt', 'pqrs-sprt']; // Example folder names passing as array
 // - CD to the project folder
 // - Run "gulp <folder-name>" in CLI to generate the sprite svg
 for(var i = 0; i < svgs.length; i++){
