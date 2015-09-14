@@ -30,11 +30,11 @@ This Boilerplate will be useful for the developers who convert images (PSDs) to 
 
 This Boilerplate depends on [nodejs](https://nodejs.org/download/) (_for templating_) and [ruby](https://www.ruby-lang.org/en/downloads/) (_for sass_). 
 - To install on windows, run `installer.bat` from `win-build` folder.
-- To install on mac, run `installer.bat` from `mac-build` folder.
+- To install on mac, run `installer.command` from `mac-build` folder.
 
 ###Usage:
 
-The `.scss` and `template/*.html` files need to be watched for changes. To watch continuously, you need to run `win-build/runner.bat` file from Windows or `mac-build/runner.bat` file from Mac OSX.
+The `.scss` and `template/*.html` files need to be watched for changes. To watch continuously, you need to run `win-build/runner.bat` file from Windows or `mac-build/runner.command` file from Mac OSX.
 
 ###References:
 
