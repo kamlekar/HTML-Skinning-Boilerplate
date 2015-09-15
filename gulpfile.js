@@ -7,7 +7,11 @@ var path = require('path');
 
 
 // svg group folder names present in "bundle-svgs" folder
-var svgs = ['xyz-sprt', 'abc-sprt', 'pqrs-sprt']; // Example folder names passing as array
+// Sometimes there will be need where we use different svg spritesheets for each page
+// if you need a common sprite, you can just mention a single folder name
+// The below are the example folder names, holding svgs for individual pages.
+// We will pass these folder names as array to generate the svg sprite-sheet.
+var svgs = ['home-sprt', 'about-sprt', 'contact-sprt']; 
 // - CD to the project folder
 // - Run "gulp <folder-name>" in CLI to generate the sprite svg
 for(var i = 0; i < svgs.length; i++){

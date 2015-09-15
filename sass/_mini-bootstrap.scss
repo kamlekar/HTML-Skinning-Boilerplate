@@ -1,0 +1,51 @@
+/**********************/
+/* The common styles which can be used in any page layouting */
+/* This styles can become flexible and friendly if you include div wrappers */
+/**********************/
+/* The below styles can be used to show a element on left and other on right */
+/* There should be only two elements adjacent to each other */
+.strch:first-child{
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+}
+.strch:first-child + strch{
+	display: table-cell;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+/* To stretch all the elements equally inside a container */
+.eq-strch-ctnr{
+	display: table;
+	table-layout: fixed;
+	/* if necessary, override width in percentage or value in other class */
+	width: 100%;
+}
+.eq-strch{
+	display: table-cell;
+}
+/* Clearfix */
+.clrfx{
+	&::after{
+		content: "";
+		clear: both;
+		display: block;
+	}
+}
+/* vertically middle a container */
+/* apply this style to the parent in which the child need to be vertically aligned */
+.v-algn-cntr{
+	&::before{
+		content: "";
+		height: 100%;
+		width: 0px;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	/* This will work if you have only one child container */
+	/* if you have more child containers, wrap them in a div and make it as child of this parent container */
+	*:first-child{
+		display: inline-block;
+		vertical-align: middle;
+	}
+}

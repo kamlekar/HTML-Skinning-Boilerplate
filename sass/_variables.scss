@@ -1,0 +1,30 @@
+//Example to show what you can have here
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+@mixin withPrefix($property, $value){
+	-webkit-#{$property}: $value;
+   	   -moz-#{$property}: $value;
+        -ms-#{$property}: $value;
+         -o-#{$property}: $value;
+    	    #{$property}: $value;
+}
+
+// Breakpoints
+$smallMobile: 320px;
+$mobile: 480px;
+$bigMobile: 720px;
+$tablet: 1024px;
+$desktop: 1366px;
+// add here further breakpoint variables or modify the above variables

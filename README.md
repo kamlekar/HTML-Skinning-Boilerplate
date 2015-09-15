@@ -2,7 +2,7 @@
 
 ##HTML Skinning Boilerplate
 
-This Boilerplate will be useful for the HTML developers to develop HTMLs faster. This uses [sass](http://sass-lang.com/), [gulp](http://gulpjs.com/) and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
+This is a starter kit for HTML Developers, useful to develop HTMLs faster. This uses [sass](http://sass-lang.com/), [gulp](http://gulpjs.com/) and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
 
 ###Advantages:
 
@@ -22,6 +22,7 @@ You can also write css faster using sass and create svg sprite-sheet.
 ###How it works?
 
 - To write sass, you can refer [sass documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
+- I already implemented common layouting styles in `_mini-bootstrap.scss` file, with comments.
 - To write in `nunjucks` template, you can refer [nunjucks documentation](https://mozilla.github.io/nunjucks/).
 - The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
 - Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet.

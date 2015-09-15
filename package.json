@@ -1,0 +1,38 @@
+{
+  "name": "html-skinning-boilerplate",
+  "version": "0.8.2",
+  "description": "This setup is starter kit for HTML developers and provide features to develop HTML faster.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-nunjucks-render": "^0.2.1"
+  },
+  "devDependencies": {
+    "gulp-nunjucks-render": "^0.2.1",
+    "gulp-path": "^2.0.1",
+    "gulp-svgmin": "^1.2.0",
+    "gulp-svgstore": "^5.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamlekar/HTML-Skinning-Boilerplate.git"
+  },
+  "keywords": [
+    "boilerplate",
+    "sass",
+    "svg",
+    "sprite",
+    "svg",
+    "sprite",
+    "nunjucks"
+  ],
+  "author": "Venkateshwar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kamlekar/HTML-Skinning-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/kamlekar/HTML-Skinning-Boilerplate#readme"
+}
