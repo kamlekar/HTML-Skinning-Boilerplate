@@ -6,16 +6,16 @@ This is a starter kit for HTML Developers, useful to develop HTMLs faster. This 
 
 ###Advantages:
 
-- Obeys [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) concept for both css and html.
+- Obeys [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) concept (_Don't repeat yourself_) for both css and html.
 - Manage all svgs as SVG sprite-sheet.
 - No need to run any web server (_optional_).
-- Later, you can use the same setup to create a single page application based on [nunjucks](https://mozilla.github.io/nunjucks/) template engine. (_in that case, don't use gulp_)
+- Later, you can use the same setup to create a single page application based on [nunjucks](https://mozilla.github.io/nunjucks/) template engine. (_in that case, don't use gulp-nunjucks-render_)
 
 ###How it is useful?
 
-Suppose, you got a requirement where you just need to develop 5 HTML pages from the provided images by the Designers. There are many common sections which you are copy pasting for each page of HTML files (_let say it is Header_). Later, the client/designer proposed some changes in header part. In that case, you need to change the header part in a page and need to copy paste again in all the 5 pages. 
+Suppose, you got a requirement where you just need to develop six HTML pages from the provided images by Designers. There are many common sections which you are copy pasting for each page of HTML files (_let say it is Header_). Later, the client/designer proposed some changes in header part. In that case, you need to change the header part in a page and need to copy paste again in all the six pages. 
 
-And if the changes are frequent in all common sections, it is quite common we miss to change the modified section in a page or two, when there are more pages. This boilerplate handles this kind of situations and many more. 
+And if the changes are frequent in all common sections and there are more pages, it is quite common we miss to change the modified section in a page or two. This boilerplate handles this kind of situations and many more. 
 
 You can also write css faster using sass and create svg sprite-sheet.
 
