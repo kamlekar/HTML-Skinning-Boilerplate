@@ -48,17 +48,20 @@ function swallowError (error) {
     this.emit('end');
 }
 */
-gulp.task('default', function () {
+function templateChange(){
     nunjucksRender.nunjucks.configure(['templates/'], { watch: false });
     return gulp.src('templates/!(_)*.html')
         .pipe(nunjucksRender({
-        	css_path: assets_path + "css/",
-        	js_path: assets_path + "js/",
-        	img_path: assets_path + "images/"
+            css_path: assets_path + "css/",
+            js_path: assets_path + "js/",
+            img_path: assets_path + "images/",
+            svgs: JSON.stringify(svgs)
         }))
         // .on('error', swallowError)
         .pipe(gulp.dest('site'));
-});
+}
+gulp.task('default', templateChange);
 gulp.task('watch', function () {
+    templateChange();
     gulp.watch(['templates/*.html'], ['default']);
 });

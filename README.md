@@ -31,7 +31,7 @@ You can also write css faster using sass and create svg sprite-sheet.
 
 ###Installation:
 
-This Boilerplate depends on [nodejs](https://nodejs.org/download/) (_for templating_) and [ruby](https://www.ruby-lang.org/en/downloads/) (_for sass_). 
+This Boilerplate needs [nodejs](https://nodejs.org/download/) (_for templating_) and [ruby](https://www.ruby-lang.org/en/downloads/) (_for sass_). So, install them and later install sass in ruby command prompt. (`gem install sass`).
 - To install on windows, run `installer.bat` from `win-build` folder.
 - To install on mac, run `installer.command` from `mac-build` folder.
 
