@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var sass = require('gulp-sass');
 var nunjucksRender = require('gulp-nunjucks-render');
 
 var svgstore = require('gulp-svgstore');
@@ -48,9 +49,14 @@ function swallowError (error) {
     this.emit('end');
 }
 */
+function sassChange(){
+  gulp.src('sass/')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('site/assets/css/'));
+}
 function templateChange(){
     nunjucksRender.nunjucks.configure(['templates/'], { watch: false });
-    return gulp.src('templates/!(_)*.html')
+    return gulp.src('templates/**/!(_)*.html')
         .pipe(nunjucksRender({
             css_path: assets_path + "css/",
             js_path: assets_path + "js/",
@@ -60,8 +66,10 @@ function templateChange(){
         // .on('error', swallowError)
         .pipe(gulp.dest('site'));
 }
-gulp.task('default', templateChange);
+gulp.task('sass', sassChange);
+gulp.task('template', templateChange);
 gulp.task('watch', function () {
     templateChange();
-    gulp.watch(['templates/*.html'], ['default']);
+    sassChange();
+    gulp.watch(['templates/**/*.html','sass/*.scss'], ['template', 'sass']);
 });

@@ -22,9 +22,11 @@
 }
 
 // Breakpoints
-$smallMobile: 320px;
-$mobile: 480px;
-$bigMobile: 720px;
-$tablet: 1024px;
-$desktop: 1366px;
+// Note: Consider using content based media queries
+// Device based media queries
+$smallMobile: 	320px;
+$mobile: 		480px;
+$bigMobile: 	720px;
+$tablet: 		1024px;
+$desktop: 		1366px;
 // add here further breakpoint variables or modify the above variables
