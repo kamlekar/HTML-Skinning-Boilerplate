@@ -7,8 +7,16 @@
 	<body>
 		<div class="page">
 			<div class="page-wrapper">
+				<!-- Header section -->
+				{% include "sections/_header.html" %}
+				<!-- if the header and footer are common, you can include there sections here -->
 				<!-- Add content here -->
 				{% block content %}{% endblock %}
+				<!-- Footer section -->
+				{% include "sections/_footer.html" %}
+			</div>
+			<div class="popup-wrapper">
+				{% include "sections/_popup-sections.html" %}
 			</div>
 		</div>
 	</body>

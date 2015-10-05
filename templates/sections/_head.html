@@ -1,7 +1,11 @@
 <head>
-	<title>HTML Skinning Boilerplate</title>
+	<title>HTML Skinning Boilerplat</title>
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{{ css_path }}main.css" type="text/css" />
+	<!-- script files -->
 	<script src="{{ js_path }}main.js" type="text/javascript"></script>
 
 	<!-- SVG Sprite preloading -->
-	{% include "../variables/_svg-sprite.html" %}
+	<!-- TO DO: Inject svg content inside html, instead of sending a request -->
+	{% include "variables/_svg-sprite.html" %}
 </head>

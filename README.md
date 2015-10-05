@@ -25,20 +25,26 @@ You can also write css faster using sass and create svg sprite-sheet.
 - I already implemented common layouting styles in `_mini-bootstrap.scss` file, with comments.
 - To write in `nunjucks` template, you can refer [nunjucks documentation](https://mozilla.github.io/nunjucks/).
 - The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
-- Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet.
+- Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet. **This svg spritesheet works only when run on any web server**
 
 > Note: _you can also write css in `.scss` files if you aren't aware of sass and same applies to nunjucks templating._
 
 ###Installation:
 
-This Boilerplate needs [nodejs](https://nodejs.org/download/) (_for templating and for sass_). So, install it first.
-- To install on windows, run `installer.bat` from `win-build` folder.
-- To install on mac, run `installer.command` from `mac-build` folder.
->Note: On mac, the `.command` files need permission to execute. you can do so by doing `$ chmod u+x <filename>` in the terminal.
+Here are some easy installation steps:
 
-###Usage:
+- This Boilerplate needs [nodejs](https://nodejs.org/download/) (_for templating and for sass_). So, install it first.
+- After installing nodejs, fork/download this repo in your local.
+- `cd` to the project folder through CLI.
+- `npm install` (add prefix `sudo` in mac, if necessary).
 
-The `.scss` and `template/*.html` files need to be watched for changes. To watch continuously, you need to run `win-build/runner.bat` file from Windows or `mac-build/runner.command` file from Mac OSX.
+That's it!! everything is ready now.
+
+###Usage
+
+To watch for template and sass changes, `cd` to project directory and then `gulp watch`.
+
+> Note: _if you are doing the above step frequently, you can create a batch extension file. I have given examples for Windows and Mac OS which you can find in win-build and mac-build folders respectively._
 
 ###References:
 

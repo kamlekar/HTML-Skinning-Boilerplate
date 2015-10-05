@@ -6,12 +6,15 @@ var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var path = require('path');
 
-
+/*****************************************/
+/***** SVG sprite creating function ******/
+/*****************************************/
 // svg group folder names present in "bundle-svgs" folder
 // Sometimes there will be need where we use different svg spritesheets for each page
 // if you need a common sprite, you can just mention a single folder name
 // The below are the example folder names, holding svgs for individual pages.
 // We will pass these folder names as array to generate the svg sprite-sheet.
+// TO DO: Get the file names automatically by reading the files
 var svgs = ['home-sprt', 'about-sprt', 'contact-sprt']; 
 // - CD to the project folder
 // - Run "gulp <folder-name>" in CLI to generate the sprite svg
@@ -49,13 +52,21 @@ function swallowError (error) {
     this.emit('end');
 }
 */
+/*****************************************/
+/*******SASS precompiling function********/
+/*****************************************/
+// TO DO: Keep the compiled css code in expanded mode
 function sassChange(){
-  gulp.src('sass/')
+  gulp.src('sass/**/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('site/assets/css/'));
+    .pipe(gulp.dest('site/assets/css'));
 }
+/*****************************************/
+/*****Templates pre-rendering function****/
+/*****************************************/
 function templateChange(){
     nunjucksRender.nunjucks.configure(['templates/'], { watch: false });
+    // used !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
     return gulp.src('templates/**/!(_)*.html')
         .pipe(nunjucksRender({
             css_path: assets_path + "css/",
@@ -66,10 +77,15 @@ function templateChange(){
         // .on('error', swallowError)
         .pipe(gulp.dest('site'));
 }
-gulp.task('sass', sassChange);
-gulp.task('template', templateChange);
-gulp.task('watch', function () {
+// Watches changes of sass and templates
+// TO DO: Run template changes and sass changes individually
+function watchChanges(){
     templateChange();
     sassChange();
-    gulp.watch(['templates/**/*.html','sass/*.scss'], ['template', 'sass']);
-});
+    gulp.watch(['templates/**/*.html','sass/**/*.scss'], ['template', 'sass']);
+}
+
+// Tasks
+gulp.task('sass', sassChange);
+gulp.task('template', templateChange);
+gulp.task('watch', watchChanges);
