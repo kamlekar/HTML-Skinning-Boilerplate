@@ -1,10 +1,13 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var nunjucksRender = require('gulp-nunjucks-render');
-
+var sourcemaps = require('gulp-sourcemaps');
+var prettify = require('gulp-prettify');
 var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var path = require('path');
+var fs = require('fs');
+
 
 /*****************************************/
 /***** SVG sprite creating function ******/
@@ -15,7 +18,17 @@ var path = require('path');
 // The below are the example folder names, holding svgs for individual pages.
 // We will pass these folder names as array to generate the svg sprite-sheet.
 // TO DO: Get the file names automatically by reading the files
-var svgs = ['home-sprt', 'about-sprt', 'contact-sprt']; 
+var svgs = ['home-sprt', 'about-sprt', 'contact-sprt', 'all-sprt']; 
+var svgObj = [];
+try{
+for(var j=0;j<svgs.length;j++){
+    var fileName = svgs[j];
+    svgObj.push(fs.readFileSync('site/assets/images/' + fileName + '.svg', 'utf8'));
+}
+}
+catch(e){
+    console.log(e);
+}
 // - CD to the project folder
 // - Run "gulp <folder-name>" in CLI to generate the sprite svg
 for(var i = 0; i < svgs.length; i++){
@@ -56,9 +69,13 @@ function swallowError (error) {
 /*******SASS precompiling function********/
 /*****************************************/
 // TO DO: Keep the compiled css code in expanded mode
+// TO DO: Add source maps
 function sassChange(){
   gulp.src('sass/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.init())
+    // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
+    .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('site/assets/css'));
 }
 /*****************************************/
@@ -72,8 +89,10 @@ function templateChange(){
             css_path: assets_path + "css/",
             js_path: assets_path + "js/",
             img_path: assets_path + "images/",
-            svgs: JSON.stringify(svgs)
+            svgs: svgs,
+            fs: fs
         }))
+        .pipe(prettify({indent_size: 4}))
         // .on('error', swallowError)
         .pipe(gulp.dest('site'));
 }

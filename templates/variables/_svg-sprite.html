@@ -1,22 +1,6 @@
-<!-- Inject it in HTML using nunjucks but don't waste a HTTP request to do the same -->
-<script>
-	(function (doc) {
-		var svgs = {{ svgs }};
-		for(var i = 0; i < svgs.length; i++){
-			var scripts = doc.getElementsByTagName('script')
-			var script = scripts[scripts.length - 1]
-			var xhr = new XMLHttpRequest()
-			xhr.onload = function (response) {
-				// If success
-				if(response.srcElement.statusText.toLowerCase() == "ok"){
-					var div = doc.createElement('div')
-					div.innerHTML = this.responseText
-					div.style.display = 'none'
-					script.parentNode.insertBefore(div, script)
-				}
-			}
-			xhr.open('get', 'assets/images/'+ svgs[i] +'.svg', true)
-			xhr.send()
-		}
-	})(document)
-</script>
+{% for svgContent in svgs %}
+  <div style="display: none">
+    {% set filepath = 'site/assets/images/' + svgContent + '.svg' %}
+	{{ fs.readFileSync(filepath, 'utf8') }}
+  </div>
+{% endfor %}

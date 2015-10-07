@@ -1,3 +1,5 @@
 
 site/assets/css/
 site/*.html
+site/assets/images/
+bundle-svgs/

@@ -10,21 +10,21 @@ $normalFontSize: 12px;
 	display: table-cell;
 	vertical-align: middle;
 	width: 100%;
-}
-.hr-strch:first-child + hr-strch{
-	display: table-cell;
-	vertical-align: middle;
-	white-space: nowrap;
+	& + .hr-strch{
+		display: table-cell;
+		vertical-align: middle;
+		white-space: nowrap;
+	}
 }
 /* The below styles can be used to show a element on top and other on bottom */
 /* There should be only two elements adjacent to each other */
 .vr-strch:first-child{
 	display: table-row;
 	width: 100%;
-}
-.vr-strch:first-child + vr-strch{
-	display: table-row;
-	white-space: nowrap;
+	& + .vr-strch{
+		display: table-row;
+		white-space: nowrap;
+	}
 }
 /* To stretch all the elements equally inside a container */
 /* FAQ: what to do when I don't want to stretch them with equal widths? 
@@ -79,7 +79,7 @@ $normalFontSize: 12px;
 .rst-fnt{
 	font-size: 0px;
 	& > *{ /* Warning: specificity is greater than normal */
-		font-size: $normalFontSize;
+		font-size: $normalFontSize; /* or 1rem */
 	}
 }
 /* SVG Sprites common stylings */
