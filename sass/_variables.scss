@@ -27,6 +27,21 @@
          #{$property}: -o-#{$value};
     	    #{$property}: #{$value};
 }
+//Fonts
+@mixin generateFont($font, $fontStyles){
+  $fontPath: "../fonts/";
+    @each $fontStyle in $fontStyles{
+      @font-face {
+            $fileName: $fontPath + to-lower-case($font) + '-' + to-lower-case($fontStyle);
+            font-family: $font + $fontStyle;
+            src: url($fileName + '.ttf');
+            src: url($fileName + '.eot') format('embedded-opentype'),
+                 url($fileName + '.woff') format('woff'),
+                 url($fileName + '.ttf') format('truetype'),
+                 url($fileName + '.svg#' + $font + $fontStyle) format('svg');
+        }
+    }
+}
 // Breakpoints
 // Note: Consider using content based media queries
 // Device based media queries
