@@ -42,6 +42,24 @@
         }
     }
 }
+//placeholder
+@mixin placeHolder(){
+    &::-webkit-input-placeholder {
+       @content;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+       @content;
+    }
+
+    &::-moz-placeholder {  /* Firefox 19+ */
+       @content;
+    }
+
+    &:-ms-input-placeholder {  
+       @content;
+    }
+}
 // Breakpoints
 // Note: Consider using content based media queries
 // Device based media queries
