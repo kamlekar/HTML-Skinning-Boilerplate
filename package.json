@@ -1,17 +1,20 @@
 {
   "name": "html-skinning-boilerplate",
-  "version": "0.8.2",
+  "version": "0.8.4",
   "description": "This setup is starter kit for HTML developers and provide features to develop HTML faster.",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp": "^3.9.0",
-    "gulp-nunjucks-render": "^0.2.1"
+    "gulp": "^3.9.0"
   },
   "devDependencies": {
-    "gulp-nunjucks-render": "^0.2.1",
+    "gulp": "^3.9.0",
+    "gulp-nunjucks-render": "^1.0.0",
     "gulp-path": "^2.0.1",
+    "gulp-prettify": "^0.3.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-svgmin": "^1.2.0",
-    "gulp-svgstore": "^5.0.4"
+    "gulp-svgstore": "^5.0.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

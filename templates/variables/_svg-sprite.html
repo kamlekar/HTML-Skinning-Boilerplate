@@ -1,0 +1,6 @@
+{% for svgContent in svgs %}
+  <div style="display: none">
+    {% set filepath = 'site/assets/images/' + svgContent + '.svg' %}
+	{{ fs.readFileSync(filepath, 'utf8') }}
+  </div>
+{% endfor %}
