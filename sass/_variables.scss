@@ -29,9 +29,10 @@
 }
 //Fonts
 @mixin generateFont($font, $fontStyles){
-  $fontPath: "../fonts/";
+    // Change the below path to font files path
+    $fontPath: "../fonts/";
     @each $fontStyle in $fontStyles{
-      @font-face {
+      	@font-face {
             $fileName: $fontPath + to-lower-case($font) + '-' + to-lower-case($fontStyle);
             font-family: $font + $fontStyle;
             src: url($fileName + '.ttf');
