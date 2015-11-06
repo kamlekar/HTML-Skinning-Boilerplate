@@ -1,14 +1,18 @@
 /* Here all the common interactions will be defined, which are useful while developing HTMLs */
 
-/* Requirement */
-// Whenever a element with "html-click" class is clicked, the value of attribute data-html-class is added a class name to the element whose class name or ID is mentioned as value in the attribute data-html-target.
-// The click should work for dynamic elements also.
-// The click should work as toggle functionality.
-// Possible values for data-html-target are
-// - .class name - adds the data-html-class value to all classes with the class name provided.
-// - #ID - adds the data-html-class to the id.
-// - none - adds the data-html-class to the clicked element itself.
+/* Requirement - explanation */
+// class =>
+// "html-click": When this class is applied to an element, the click behaviours mentioned in this library will be triggered based on the provided additional attributes which are mentioned below.
+// Attributes =>
+// data-html-class: This attribute holds the value of the class name which need to be added to the target element.
+// data-html-target: This attribute holds the value to call the target element. The value can be ID or class name or tag name. (as I am using querySelector).
+// data-html-toggle: This attribute holds the value of the toggle state, whether to add the class or remove the class or toggle the class (on clicked again). Possible values are "add", "remove" and "toggle". Default value is "toggle".
+// data-html-outside-click: This attribute holds the boolean value which states whether to reset the added/removed class on click of the outside of the "html-click" element and referenced target element.
 
+/* Theory */
+// Whenever a element with "html-click" class is clicked, the value of attribute data-html-class is added a class name to the element whose class name or ID is mentioned as value in the attribute data-html-target, of the clicked element.
+// The click should work for dynamic elements also.
+// The click should work as toggle functionality or only add or only remove, as the attribute is provided.
 
 // First would be to add a class to a element when another/same element is clicked
 var htmlClickElements = document.getElementsByClassName('html-click');
