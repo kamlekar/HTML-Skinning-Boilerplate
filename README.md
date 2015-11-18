@@ -55,3 +55,9 @@ Very nice articles to know about SVG Spritesheets
 - [Styling SVG <use> Content with CSS](http://tympanus.net/codrops/2015/07/16/styling-svg-use-content-css/)
 
 PS: Contributors are welcome :)
+
+###FAQ:
+
+#####1) I am getting following error while trying to install node dependencies in command prompt.
+> Couldn't install optional dependency: Unsupported
+For this Boilerplate, the following fix will work. Check this [link](https://github.com/npm/npm/issues/9204#issuecomment-157653267). 

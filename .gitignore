@@ -2,4 +2,5 @@
 site/assets/css/
 site/*.html
 site/assets/images/
-bundle-svgs/
+bundle-svgs/**.svg
+node_modules/

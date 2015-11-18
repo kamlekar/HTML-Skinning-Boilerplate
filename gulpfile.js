@@ -22,10 +22,10 @@ var fs = require('fs');
 var svgs = [];
 var svgObj = [];
 try{
-for(var j=0;j<svgs.length;j++){
-    var fileName = svgs[j];
-    svgObj.push(fs.readFileSync('site/assets/images/' + fileName + '.svg', 'utf8'));
-}
+    for(var j=0;j<svgs.length;j++){
+        var fileName = svgs[j];
+        svgObj.push(fs.readFileSync('site/assets/images/' + fileName + '.svg', 'utf8'));
+    }
 }
 catch(e){
     console.log(e);
