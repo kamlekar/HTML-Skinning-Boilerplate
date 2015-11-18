@@ -19,27 +19,32 @@ var htmlClickElements = document.getElementsByClassName('html-click');
 [].forEach.call(htmlClickElements, function(el){
 	el.addEventListener('click', htmlClick, true);
 });
-function htmlActions(el, classAction){
-	var htmlTarget = el.dataset['htmlTarget'];
-	var targetClass = el.dataset['htmlClass'];
-	var	targetElement = htmlTarget ? document.querySelectorAll(htmlTarget) : el;
-	if(targetClass){
-		// check if targetElement is an array
-		if(typeof targetElement === "object" && targetElement.length){
-			[].forEach.call(targetElement, function(el){
-				el.classList[classAction](targetClass);
-			});
-		}
-		// check if targetElement is a valid element
-		else if(targetElement){ 
-			targetElement.classList[classAction](targetClass);
+function htmlActions(els, classAction){
+	for(var i = 0; i < els.length; i++){
+		var el = els[i];
+		var htmlTarget = el.dataset['htmlTarget'];
+		var targetClass = el.dataset['htmlClass'];
+		var	targetElement = htmlTarget ? document.querySelectorAll(htmlTarget) : el;
+
+
+		if(targetClass){
+			// check if targetElement is an array
+			if(typeof targetElement === "object" && targetElement.length){
+				[].forEach.call(targetElement, function(el){
+					el.classList[classAction](targetClass);
+				});
+			}
+			// check if targetElement is a valid element
+			else if(targetElement){ 
+				targetElement.classList[classAction](targetClass);
+			}
+			else{
+				// Throw error saying - target element is not found in the Document.
+			}
 		}
 		else{
-			// Throw error saying - target element is not found in the Document.
+			// Throw error saying - Please provide class name to add to the target element.
 		}
-	}
-	else{
-		// Throw error saying - Please provide class name to add to the target element.
 	}
 }
 function htmlClick(e){
@@ -47,6 +52,8 @@ function htmlClick(e){
 	// Setting default value to true for resetting the added/removed class 
 	// on outside click of the element
 	var outsideClick = el.dataset['htmlOutsideClick'] || true;
+	var htmlTarget = el.dataset['htmlTarget'];
+	var targetElement = htmlTarget ? document.querySelectorAll(htmlTarget) : [el]; 
 	if(false){
 		// stopPropagation explanation: 
 		// I added a function "resetClick", which removes the dynamically added class 
@@ -58,6 +65,24 @@ function htmlClick(e){
 	else{
 		// Don't reset the added/removed class from the target element
 	}
+	// reset the added or removed class from the other "html-click" elements
+	var newHtmlClickElements = document.getElementsByClassName('html-click');
+	[].forEach.call(newHtmlClickElements, function(el){
+		var t = el.dataset['htmlTarget'];
+		var tEl = t ? document.querySelectorAll(t) : [el];
+		var toggle = el.dataset['htmlToggle'] || 'toggle';
+		// Don't reset the added/removed class if html-toggle is not "toggle"
+		if(toggle === "add"){
+			htmlActions(tEl, "remove");
+		}
+		else if(toggle === "remove"){
+			htmlActions(tEl, "add");
+		}
+		else{
+			// if toggle
+			htmlActions(tEl, "toggle");
+		}
+	});
 	// Default value is "toggle"
 	var toggleValue = el.dataset['htmlToggle'] || 'toggle';
 	// Valid toggle attribute values

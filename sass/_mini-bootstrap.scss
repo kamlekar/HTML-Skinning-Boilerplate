@@ -49,7 +49,7 @@ $normalFontSize: 12px;
 	vertical-align: middle;
 }
 /* Clearfix */
-.clrfx{
+%clrfx{
 	&::after{
 		content: "";
 		clear: both;

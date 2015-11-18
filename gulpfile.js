@@ -18,7 +18,8 @@ var fs = require('fs');
 // The below are the example folder names, holding svgs for individual pages.
 // We will pass these folder names as array to generate the svg sprite-sheet.
 // TO DO: Get the file names automatically by reading the files
-var svgs = ['home-sprt', 'about-sprt', 'contact-sprt', 'all-sprt']; 
+// var svgs = ['home-sprt', 'about-sprt', 'contact-sprt', 'all-sprt']; 
+var svgs = [];
 var svgObj = [];
 try{
 for(var j=0;j<svgs.length;j++){
