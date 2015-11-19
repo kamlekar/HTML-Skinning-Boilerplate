@@ -60,4 +60,5 @@ PS: Contributors are welcome :)
 
 #####1) I am getting following error while trying to install node dependencies in command prompt.
 > Couldn't install optional dependency: Unsupported
+
 For this Boilerplate, the following fix will work. Check this [link](https://github.com/npm/npm/issues/9204#issuecomment-157653267). 
