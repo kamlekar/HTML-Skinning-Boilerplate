@@ -20,11 +20,53 @@
          -o-#{$property}: $value;
     	    #{$property}: $value;
 }
+@mixin withSuffix($property, $value){
+	#{$property}: -webkit-#{$value};
+   	   #{$property}: -moz-#{$value};
+        #{$property}: -ms-#{$value};
+         #{$property}: -o-#{$value};
+    	    #{$property}: #{$value};
+}
+//Fonts
+@mixin generateFont($font, $fontStyles){
+    // Change the below path to font files path
+    $fontPath: "../fonts/";
+    @each $fontStyle in $fontStyles{
+      	@font-face {
+            $fileName: $fontPath + to-lower-case($font) + '-' + to-lower-case($fontStyle);
+            font-family: $font + $fontStyle;
+            src: url($fileName + '.ttf');
+            src: url($fileName + '.eot') format('embedded-opentype'),
+                 url($fileName + '.woff') format('woff'),
+                 url($fileName + '.ttf') format('truetype'),
+                 url($fileName + '.svg#' + $font + $fontStyle) format('svg');
+        }
+    }
+}
+//placeholder
+@mixin placeHolder(){
+    &::-webkit-input-placeholder {
+       @content;
+    }
 
+    &:-moz-placeholder { /* Firefox 18- */
+       @content;
+    }
+
+    &::-moz-placeholder {  /* Firefox 19+ */
+       @content;
+    }
+
+    &:-ms-input-placeholder {  
+       @content;
+    }
+}
 // Breakpoints
-$smallMobile: 320px;
-$mobile: 480px;
-$bigMobile: 720px;
-$tablet: 1024px;
-$desktop: 1366px;
+// Note: Consider using content based media queries
+// Device based media queries
+$smallMobile: 	320px;
+$mobile: 		480px;
+$bigMobile: 	720px;
+$tablet: 		1024px;
+$desktop: 		1366px;
 // add here further breakpoint variables or modify the above variables

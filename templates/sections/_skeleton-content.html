@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<!-- HTML files with "_" as prefix will be not be converted as a page html 
+			 (check gulpfile.js file for the code) -->
+	{% include "sections/_head.html" %}
+	<!-- You can go through nunjucks documentation to use template engine syntax -->
+	<body>
+		<div class="page">
+			<div class="page-wrapper">
+				<!-- Header section -->
+				{% include "sections/_header.html" %}
+				<!-- if the header and footer are common, you can include there sections here -->
+				<!-- Add content here -->
+				{% block content %}{% endblock %}
+				<!-- Footer section -->
+				{% include "sections/_footer.html" %}
+			</div>
+			<div class="popup-wrapper">
+				{% include "sections/_popup-sections.html" %}
+			</div>
+		</div>
+		<!-- HTML script path -->
+		<script src="{{ js_path }}html.js" type="text/javascript"></script>
+	</body>
+</html>
