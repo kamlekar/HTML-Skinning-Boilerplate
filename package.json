@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-cheerio": "^0.6.2",
     "gulp-nunjucks-render": "^1.0.0",
     "gulp-path": "^2.0.1",
     "gulp-prettify": "^0.3.0",

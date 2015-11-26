@@ -4,6 +4,7 @@ var nunjucksRender = require('gulp-nunjucks-render');
 var sourcemaps = require('gulp-sourcemaps');
 var prettify = require('gulp-prettify');
 var svgstore = require('gulp-svgstore');
+var cheerio = require('gulp-cheerio');
 var svgmin = require('gulp-svgmin');
 var path = require('path');
 var fs = require('fs');
@@ -49,6 +50,10 @@ for(var i = 0; i < svgs.length; i++){
                 }
             }))
             .pipe(svgstore())
+            // Uncomment the below lines to add additional attributes to the generated SVG Sprite
+            // .pipe(cheerio(function($, file){
+            //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
+            // }))
             // Store the generated svg sprite in "site/assets/images/" folder
             .pipe(gulp.dest('site/assets/images/'));
     }.bind(svgs[i]));    
