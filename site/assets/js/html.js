@@ -5,7 +5,6 @@
 
 // Global Variable
 var ignorableElements = [];
-// var dontCallDocumentClick = false;
 // Registering clicks on clickable 
 var htmlClickElements = document.getElementsByClassName('html-click');
 [].forEach.call(htmlClickElements, function(el){
@@ -18,9 +17,7 @@ document.addEventListener('mousedown', function(e){
 	// First check whether the user clicked on the clickable element(s) or target element(s).
 	// If user hasn't clicked on the clickable element or target element then reset the performed actions on the clickable element(s) and target element(s) with outside clicking is as active.
 	// (For this, we need to add another common attribute to clicked element and target element)
-	// if(!dontCallDocumentClick){
-		resetStyles();
-	// }
+	resetStyles();
 });
 
 // Defining outside click actions
@@ -28,46 +25,11 @@ document.addEventListener('mouseup', function(e){
 	
 });
 
-// function ignoreDocumentClick(){
-// 	dontCallDocumentClick = true;
-// }
-
-// function dontIgnoreDocumentClick(){
-// 	dontCallDocumentClick = false;
-// }
-
-// function addIgnoreElementFunc(targetElements){
-// 	[].forEach.call(targetElements, function(el){
-// 		el.addEventListener('mousedown', ignoreDocumentClick);
-// 		el.addEventListener('mouseup', dontIgnoreDocumentClick);
-// 	});
-// }
-
-// function removeIgnoreElementFunc(targetElements){
-// 	[].forEach.call(targetElements, function(el){
-// 		// Here we need to remove only the 'mousedown' and 'mouseup' event functions
-// 		// which are being added by this library (don't remove other functions on the same event)
-// 		el.removeEventListener('mousedown', ignoreDocumentClick);
-// 		el.removeEventListener('mouseup', dontIgnoreDocumentClick);
-// 	});
-// }
 function performActions(clickedElement, doOpposite){
 	var metaInfo = clickedElement.dataset;
 	var referenceOfTargetElement = metaInfo['htmlTarget'];
 	// Go to target element(s) from the provided info in clicked element.
 	// if target element(s) is not mentioned, assume the target element is the clicked element itself.
-	// if(referenceOfTargetElement){
-	// 	targetElements = document.querySelectorAll(referenceOfTargetElement);
-
-	// 	// Adding dummy click event to the target elements.
-	// 	// So that whenever user clicks on these target elements, the reset function should not get triggered
-	// 	// the reset function is written on document click 
-	// 	// and this function will not trigger if the variable "dontCallDocumentClick" is set to true
-	// 	addIgnoreElementFunc(targetElements);
-	// }
-	// else{
-	// 	targetElements = [clickedElement];
-	// }
 	var targetElements = referenceOfTargetElement ? document.querySelectorAll(referenceOfTargetElement) : [clickedElement]; 
 	// Perform the toggle/add/remove of the class on the target element(s) as mentioned in the clicked element info.
 	[].forEach.call(targetElements, markAsActive);
@@ -126,10 +88,6 @@ function resetStyles(){
 	for(var i = 0; i < resettableElements.length; i++){
 		performActions(resettableElements[i], true);
 	}
-
-	// TO DO: Need to see whether this implementation can be included inside 
-	// the above resettable elements' for loop to avoid unnecessary loops
-	// removeIgnoreElementFunc(resettableElements);
 }
 function htmlClick(e){
 	var clickedElement = e.currentTarget;
