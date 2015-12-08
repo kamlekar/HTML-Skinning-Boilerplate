@@ -75,13 +75,13 @@ function swallowError (error) {
 /*******SASS precompiling function********/
 /*****************************************/
 // TO DO: Keep the compiled css code in expanded mode
-// TO DO: Add source maps
 function sassChange(){
   gulp.src('sass/**/*.scss')
     .pipe(sourcemaps.init())
     // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
     .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
-    .pipe(sourcemaps.write())
+    // For mapping: Don't mention the path to make the mapping inline
+    .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('site/assets/css'));
 }
 /*****************************************/

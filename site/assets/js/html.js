@@ -5,10 +5,12 @@
 var htmljs = (function(){ 
 	// Global Variable
 	var ignorableElements = [];
+	var htmlClickElements = function(){
+		return document.getElementsByClassName('html-click');
+	}
 	var init = function(){
 		// Registering clicks on clickable 
-		var htmlClickElements = document.getElementsByClassName('html-click');
-		[].forEach.call(htmlClickElements, function(el){
+		[].forEach.call(htmlClickElements(), function(el){
 			el.addEventListener('click', htmlClick, true);
 		});
 
@@ -17,7 +19,7 @@ var htmljs = (function(){
 			// First check whether the user clicked on the clickable element(s) or target element(s).
 			// If user hasn't clicked on the clickable element or target element then reset the performed actions on the clickable element(s) and target element(s) with outside clicking is as active.
 			// (For this, we need to add another common attribute to clicked element and target element)
-			var resettableElements = [].slice.call(htmlClickElements).filter(function(el){
+			var resettableElements = [].slice.call(htmlClickElements()).filter(function(el){
 				for(var j = 0;j < ignorableElements.length; j++){
 					if(el === ignorableElements[j]){
 						return false;
@@ -37,12 +39,19 @@ var htmljs = (function(){
 	function performActions(clickedElement, doOpposite){
 		var metaInfo = clickedElement.dataset;
 		var referenceOfTargetElement = metaInfo['htmlTarget'];
+		// Adding unique value as custom attribute
+		clickedElement.setAttribute('data-html-dummy-selector', '1')
+		// Replace "this " string with custom attribute with value
+		referenceOfTargetElement = referenceOfTargetElement.replace("this ", '[data-html-dummy-selector="1"] ');
 		// Go to target element(s) from the provided info in clicked element.
 		// if target element(s) is not mentioned, assume the target element is the clicked element itself.
 		var targetElements = referenceOfTargetElement ? document.querySelectorAll(referenceOfTargetElement) : [clickedElement]; 
+		// After getting the relative element, the added custom attribute is useless
+		// So, remove it
+		clickedElement.removeAttribute('data-html-dummy-selector');
 		// Perform the toggle/add/remove of the class on the target element(s) as mentioned in the clicked element info.
 
-		var targetElementClass = metaInfo['htmlClass'];
+		var targetElementClass = metaInfo['htmlClass'] || 'active';
 		var toggleType = metaInfo['htmlToggle'] || 'toggle';
 		var outsideClick = metaInfo['htmlOutsideClick'] || 'true';
 		if(doOpposite){
@@ -92,7 +101,7 @@ var htmljs = (function(){
 		// resetting previously active elements
 		var previousIgnorableElements = document.querySelectorAll('[data-html-click-active]');
 		[].forEach.call(previousIgnorableElements, unmarkAsActive);
-
+		
 		var clickedElement = e.currentTarget;
 		performActions(clickedElement);
 	}
@@ -112,7 +121,8 @@ var htmljs = (function(){
 		}
 	}
 	return {
-		init: init
+		init: init,
+		click: htmlClick
 	}
 })();
 
