@@ -39,13 +39,18 @@ var htmljs = (function(){
 	function performActions(clickedElement, doOpposite){
 		var metaInfo = clickedElement.dataset;
 		var referenceOfTargetElement = metaInfo['htmlTarget'];
-		// Adding unique value as custom attribute
-		clickedElement.setAttribute('data-html-dummy-selector', '1')
-		// Replace "this " string with custom attribute with value
-		referenceOfTargetElement = referenceOfTargetElement.replace("this ", '[data-html-dummy-selector="1"] ');
-		// Go to target element(s) from the provided info in clicked element.
-		// if target element(s) is not mentioned, assume the target element is the clicked element itself.
-		var targetElements = referenceOfTargetElement ? document.querySelectorAll(referenceOfTargetElement) : [clickedElement]; 
+		// Adding unique value as custom attribute to fetch the target element relative to the clicked element
+		clickedElement.setAttribute('data-html-dummy-selector', '1');
+		if(referenceOfTargetElement){
+			// Replace "this " string with custom attribute with value
+			referenceOfTargetElement = referenceOfTargetElement.replace("this ", '[data-html-dummy-selector="1"] ');
+			// Go to target element(s) from the provided info in clicked element.
+			// if target element(s) is not mentioned, assume the target element is the clicked element itself.
+			var targetElements = document.querySelectorAll(referenceOfTargetElement);
+		}
+		else{
+			var targetElements = [clickedElement];
+		} 
 		// After getting the relative element, the added custom attribute is useless
 		// So, remove it
 		clickedElement.removeAttribute('data-html-dummy-selector');
