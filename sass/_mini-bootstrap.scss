@@ -82,6 +82,16 @@ $normalFontSize: 12px;
 		font-size: $normalFontSize; /* or 1rem */
 	}
 }
+.ellipsis {
+	&:before {
+		display: block;
+		content: attr(title);
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+}
+
 /* SVG Sprites common stylings */
 /* For this to work properly, you need to apply prefixes such as "one-" and "ione-" to the svg icons */
 /* prefix "one-" is for the icons which have stroke as border and fill as inside color */
