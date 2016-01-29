@@ -6,6 +6,7 @@ var prettify = require('gulp-prettify');
 var svgstore = require('gulp-svgstore');
 // var cheerio = require('gulp-cheerio');
 var svgmin = require('gulp-svgmin');
+var concat = require('gulp-concat');
 var path = require('path');
 var fs = require('fs');
 
