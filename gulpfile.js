@@ -87,10 +87,10 @@ function sassChange(){
 /*****************************************/
 /*****Templates pre-rendering function****/
 /*****************************************/
-function templateChange(){
+function preTemplateChanges(){
     nunjucksRender.nunjucks.configure(['templates/'], { watch: false });
     // used !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
-    return gulp.src('templates/**/!(_)*.html')
+    return gulp.src('templates-pre/**/!(_)*.html')
         .pipe(nunjucksRender({
             css_path: assets_path + "css/",
             js_path: assets_path + "js/",
@@ -102,15 +102,30 @@ function templateChange(){
         // .on('error', swallowError)
         .pipe(gulp.dest('site'));
 }
+/*********************************************************/
+/**** Templates post-rendering/pre-compiling function ****/
+/*********************************************************/
+function postTemplateChanges(){
+    return gulp.src(['templates-post/**/*.html'])
+    .pipe(postTemplate({
+        name: function (file) {
+            return path.basename(file.relative, path.extname(file.relative));
+        }
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('site/assets/js/'));
+}
 // Watches changes of sass and templates
 // TO DO: Run template changes and sass changes individually
 function watchChanges(){
-    templateChange();
+    preTemplateChanges();
+    postTemplateChanges();
     sassChange();
-    gulp.watch(['templates/**/*.html','sass/**/*.scss'], ['template', 'sass']);
+    gulp.watch(['templates-pre/**/*.html','templates-post/**/*.html','sass/**/*.scss'], ['pre-templates','post-templates','sass']);
 }
 
 // Tasks
 gulp.task('sass', sassChange);
-gulp.task('template', templateChange);
+gulp.task('pre-templates', preTemplateChanges);
+gulp.task('post-templates', postTemplateChanges);
 gulp.task('watch', watchChanges);
