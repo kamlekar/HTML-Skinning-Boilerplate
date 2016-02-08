@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
 var nunjucksRender = require('gulp-nunjucks-render');
+var postTemplate = require('gulp-nunjucks');
 var sourcemaps = require('gulp-sourcemaps');
 var prettify = require('gulp-prettify');
 var svgstore = require('gulp-svgstore');
@@ -77,19 +80,21 @@ function swallowError (error) {
 /*****************************************/
 // TO DO: Keep the compiled css code in expanded mode
 function sassChange(){
-  gulp.src('sass/**/*.scss')
-    .pipe(sourcemaps.init())
-    // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
-    .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
-    // For mapping: Don't mention the path to make the mapping inline
-    .pipe(sourcemaps.write('maps'))
-    .pipe(gulp.dest('site/assets/css'));
+    var processors = [autoprefixer];
+    gulp.src('sass/**/*.scss')
+        .pipe(sourcemaps.init())
+        // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
+        .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
+        .pipe(postcss(processors))
+        // For mapping: Don't mention the path to make the mapping inline
+        .pipe(sourcemaps.write('maps'))
+        .pipe(gulp.dest('site/assets/css'));
 }
 /*****************************************/
 /*****Templates pre-rendering function****/
 /*****************************************/
 function preTemplateChanges(){
-    nunjucksRender.nunjucks.configure(['templates/'], { watch: false });
+    nunjucksRender.nunjucks.configure(['templates-pre/'], { watch: false });
     // used !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
     return gulp.src('templates-pre/**/!(_)*.html')
         .pipe(nunjucksRender({
