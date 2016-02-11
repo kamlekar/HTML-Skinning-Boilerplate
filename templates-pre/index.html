@@ -1,3 +1,5 @@
+<!-- Set document title (see "_structure/_head") -->
+{% set document_title = "Main Page" %}
 {% extends "sections/_skeleton-content.html" %}
 {% block content %}
 	<!-- page content here -->
@@ -8,4 +10,14 @@
 		<div class="new">xyz</div>
 		<div class="html-click" data-html-class="hey" data-html-target=".new">hey</div>
 	</div>
+{% endblock %}
+
+<!-- Add custom css to the <head> tag -->
+{% block include_head %}
+<link src="#" />
+{% endblock %}
+
+<!-- Add custom js to the footer, before closing </body> -->
+{% block include_footer %}
+<script src="#" /></script>
 {% endblock %}
