@@ -1,4 +1,21 @@
+var basePath = {
+    bundleSvgs: 'bundle-svgs/',
+    sass: 'sass/',
+    site: 'site/',
+    templatesPre: 'templates-pre/',
+    templatesPost: 'templates-post/',
+};
+
+var assetsPath = {
+    img: 'assets/images/',
+    js: 'assets/js/',
+    css: 'assets/css/'
+};
+
+var dataPath = './' + basePath.site + 'data/';
+
 var gulp = require('gulp');
+var data = require('gulp-data');
 var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
@@ -29,7 +46,7 @@ var svgObj = [];
 try{
     for(var j=0;j<svgs.length;j++){
         var fileName = svgs[j];
-        svgObj.push(fs.readFileSync('site/assets/images/' + fileName + '.svg', 'utf8'));
+        svgObj.push(fs.readFileSync( basePath.site + assetsPath.img + fileName + '.svg', 'utf8'));
     }
 }
 catch(e){
@@ -41,7 +58,7 @@ for(var i = 0; i < svgs.length; i++){
     gulp.task(svgs[i], function () {
         return gulp
             // looks for each folder inside "bundle-svgs" folder
-            .src('bundle-svgs/' + this + '/*.svg')
+            .src(basePath.bundleSvgs + this + '/*.svg')
             .pipe(svgmin(function (file) {
                 var prefix = path.basename(file.relative, path.extname(file.relative));
                 return {
@@ -59,11 +76,9 @@ for(var i = 0; i < svgs.length; i++){
             //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
             // }))
             // Store the generated svg sprite in "site/assets/images/" folder
-            .pipe(gulp.dest('site/assets/images/'));
+            .pipe(gulp.dest(basePath.site+assetsPath.img));
     }.bind(svgs[i]));    
 }
-
-var assets_path = "assets/";
 
 /* // Test this function 
    // Intention: Stops from breaking the gulp watch on any error
@@ -81,45 +96,48 @@ function swallowError (error) {
 // TO DO: Keep the compiled css code in expanded mode
 function sassChange(){
     var processors = [autoprefixer];
-    gulp.src('sass/**/*.scss')
+    gulp.src(basePath.sass+'**/*.scss')
         .pipe(sourcemaps.init())
         // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
         .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
         .pipe(postcss(processors))
         // For mapping: Don't mention the path to make the mapping inline
         .pipe(sourcemaps.write('maps'))
-        .pipe(gulp.dest('site/assets/css'));
+        .pipe(gulp.dest(basePath.site+assetsPath.css));
 }
 /*****************************************/
 /*****Templates pre-rendering function****/
 /*****************************************/
 function preTemplateChanges(){
-    nunjucksRender.nunjucks.configure(['templates-pre/'], { watch: false });
+    nunjucksRender.nunjucks.configure([basePath.templatesPre], { watch: false });
     // used !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
-    return gulp.src('templates-pre/**/!(_)*.html')
+    return gulp.src(basePath.templatesPre+'**/!(_)*.html')
+        .pipe(data(function(){
+            return require(dataPath+'data.json')
+        }))
         .pipe(nunjucksRender({
-            css_path: assets_path + "css/",
-            js_path: assets_path + "js/",
-            img_path: assets_path + "images/",
+            css_path: assetsPath.css,
+            js_path: assetsPath.js,
+            img_path: assetsPath.img,
             svgs: svgs,
             fs: fs
         }))
         .pipe(prettify({indent_size: 4}))
         // .on('error', swallowError)
-        .pipe(gulp.dest('site'));
+        .pipe(gulp.dest(basePath.site);
 }
 /*********************************************************/
 /**** Templates post-rendering/pre-compiling function ****/
 /*********************************************************/
 function postTemplateChanges(){
-    return gulp.src(['templates-post/**/*.html'])
+    return gulp.src([basePath.templatesPost+'**/*.html'])
     .pipe(postTemplate({
         name: function (file) {
             return path.basename(file.relative, path.extname(file.relative));
         }
     }))
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('site/assets/js/'));
+    .pipe(gulp.dest(basePath.site+assetsPath.js));
 }
 // Watches changes of sass and templates
 // TO DO: Run template changes and sass changes individually
@@ -127,7 +145,7 @@ function watchChanges(){
     preTemplateChanges();
     postTemplateChanges();
     sassChange();
-    gulp.watch(['templates-pre/**/*.html','templates-post/**/*.html','sass/**/*.scss'], ['pre-templates','post-templates','sass']);
+    gulp.watch([basePath.templatesPre+'**/*.html',basePath.templatesPost+'**/*.html',basePath.sass+'**/*.scss'], ['pre-templates','post-templates','sass']);
 }
 
 // Tasks
