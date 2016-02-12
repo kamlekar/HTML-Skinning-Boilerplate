@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var data = require('gulp-data');
 var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
@@ -97,6 +98,10 @@ function preTemplateChanges(){
     nunjucksRender.nunjucks.configure(['templates-pre/'], { watch: false });
     // used !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
     return gulp.src('templates-pre/**/!(_)*.html')
+        // Add data to Nunjucks
+    	.pipe(data(function(){
+			return require('./site/data/data.json')
+		}))
         .pipe(nunjucksRender({
             css_path: assets_path + "css/",
             js_path: assets_path + "js/",
