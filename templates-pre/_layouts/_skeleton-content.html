@@ -2,20 +2,20 @@
 <html lang="en-us">
 	<!-- You don't need _head.html part. Having this section in _skeleton.html is easier to edit 
 +	and visible for user what he has on page. Also, I included improvements for Document Title. -->
-+	<head>
-+		<title>{{ document_title }} | My Site</title>
-+		<!-- Meta -->
-+		<meta charset="UTF-8" />
-+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-+
-+		<!-- CSS Files -->
-+		<link rel="stylesheet" href="{{ css_path }}main.css" type="text/css" />
-+		<!-- this is a specific css block which user can extend on specific pages with {% block include_head %} -->
-+		{% block include_head %}{% endblock %}
-+		<!-- End specific css -->
-+		<!-- End CSS files -->
-+	</head>
+	<head>
+		<title>{{ document_title }} | My Site</title>
+		<!-- Meta -->
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="{{ css_path }}main.css" type="text/css" />
+		<!-- this is a specific css block which user can extend on specific pages with {% block include_head %} -->
+		{% block include_head %}{% endblock %}
+		<!-- End specific css -->
+		<!-- End CSS files -->
+	</head>
 	<body>
 		<div class="page">
 			<div class="page-wrapper">
@@ -36,6 +36,6 @@
 		<script src="//mozilla.github.io/nunjucks/files/nunjucks.js" type="text/javascript"></script>
 		<script src="{{ js_path }}html.js" type="text/javascript"></script>
 		<!-- Using include_footer, user can add specific scripts -->
-+		{% block include_footer %}{% endblock %}
+		{% block include_footer %}{% endblock %}
 	</body>
 </html>
