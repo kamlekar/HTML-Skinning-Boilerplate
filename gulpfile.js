@@ -100,6 +100,7 @@ function preTemplateChanges(){
         .pipe(nunjucksRender({
             css_path: assets_path + "css/",
             js_path: assets_path + "js/",
+            lib_path: assets_path + "libs/",
             img_path: assets_path + "images/",
             svgs: svgs,
             fs: fs

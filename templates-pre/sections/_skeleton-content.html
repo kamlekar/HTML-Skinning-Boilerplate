@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en-us">
 	<head>
-		<title>{{ document_title }} | My Site</title>
-		<!-- Meta -->
-		<meta charset="UTF-8" />
+		<title>HTML Skinning Boilerplate</title>
+		<!-- meta tags -->
+		<!-- don't mention any other tags above the below meta tag -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-
+		<!-- CSS files -->
 		<link rel="stylesheet" href="{{ css_path }}main.css" type="text/css" />
+		<!-- script files -->
 		{% block include_head %}{% endblock %}
+
+		<!-- SVG Sprite preloading -->
+		<!-- TO DO: Inject svg content inside html, instead of sending a request -->
+		{% include "variables/_svg-sprite.html" %}
 	</head>
 	<body>
 		<div class="page">
@@ -27,7 +33,7 @@
 		</div>
 		<!-- HTML script path -->
 		<script src="//mozilla.github.io/nunjucks/files/nunjucks.js" type="text/javascript"></script>
-		<script src="{{ js_path }}html.js" type="text/javascript"></script>
+		<script src="{{ lib_path }}html.js" type="text/javascript"></script>
 		{% block include_footer %}{% endblock %}
 	</body>
 </html>
