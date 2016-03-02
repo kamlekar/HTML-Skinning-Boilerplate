@@ -1,15 +1,10 @@
-{% for svgContent in svgs %}
-  <div style="display: none">
-    {% set filepath = 'site/assets/images/' + svgContent + '.svg' %}
-	{{ fs.readFileSync(filepath, 'utf8') }}
-  </div>
-{% endfor %}
+
 
 <!-- For getting svg content from HTTP request -->
-<!--
+
 <script>	
 	(function (doc) {		
-		var svgs = {{ svgs }};	
+		var svgs = "{{ svgs }}".split(",");	
 		for(var i = 0; i < svgs.length; i++){		
    			var scripts = doc.getElementsByTagName('script')	
    			var script = scripts[scripts.length - 1]		
@@ -34,4 +29,3 @@
 		}		
 	})(document)		
 </script>
--->

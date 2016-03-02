@@ -8,6 +8,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var prettify = require('gulp-prettify');
 var svgstore = require('gulp-svgstore');
 // var cheerio = require('gulp-cheerio');
+var gutil = require('gulp-util');
+var folders = require('gulp-folders');
 var svgmin = require('gulp-svgmin');
 var concat = require('gulp-concat');
 var path = require('path');
@@ -22,8 +24,6 @@ var fs = require('fs');
 // if you need a common sprite, you can just mention a single folder name
 // The below are the example folder names, holding svgs for individual pages.
 // We will pass these folder names as array to generate the svg sprite-sheet.
-// TO DO: Get the file names automatically by reading the files
-// var svgs = ['home-sprt', 'about-sprt', 'contact-sprt', 'all-sprt']; 
 var svgs = [];
 var svgObj = [];
 try{
@@ -35,13 +35,20 @@ try{
 catch(e){
     console.log(e);
 }
-// - CD to the project folder
-// - Run "gulp <folder-name>" in CLI to generate the sprite svg
-for(var i = 0; i < svgs.length; i++){
-    gulp.task(svgs[i], function () {
+
+/*****************************************/
+/*******SVG precompiling function********/
+/*****************************************/
+function generateSvg(){
+    svgs = [];  // Initializing
+    return folders('bundle-svgs/', function(folder){
+        // 'folders' function will loop over all the folders
+        // Storing the folder names in array to use this array to load the svg script
+        svgs.push(folder);
+        // gutil.log(svgs);
         return gulp
             // looks for each folder inside "bundle-svgs" folder
-            .src('bundle-svgs/' + this + '/*.svg')
+            .src('bundle-svgs/' + folder + '/*.svg')
             .pipe(svgmin(function (file) {
                 var prefix = path.basename(file.relative, path.extname(file.relative));
                 return {
@@ -60,21 +67,12 @@ for(var i = 0; i < svgs.length; i++){
             // }))
             // Store the generated svg sprite in "site/assets/images/" folder
             .pipe(gulp.dest('site/assets/images/'));
-    }.bind(svgs[i]));    
-}
+    })();
+};
+
 
 var assets_path = "assets/";
 
-/* // Test this function 
-   // Intention: Stops from breaking the gulp watch on any error
-function swallowError (error) {
-    //If you want details of the error in the console
-    console.log(error.toString());
-    notify(error.toString());
-    util.beep();
-    this.emit('end');
-}
-*/
 /*****************************************/
 /*******SASS precompiling function********/
 /*****************************************/
@@ -95,7 +93,7 @@ function sassChange(){
 /*****************************************/
 function preTemplateChanges(){
     nunjucksRender.nunjucks.configure(['templates-pre/'], { watch: false });
-    // used !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
+    // use !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
     return gulp.src('templates-pre/**/!(_)*.html')
         .pipe(nunjucksRender({
             css_path: assets_path + "css/",
@@ -105,6 +103,9 @@ function preTemplateChanges(){
             svgs: svgs,
             fs: fs
         }))
+        .on('error', function(error){
+            gutil.log(error.message);
+        })
         .pipe(prettify({indent_size: 4}))
         // .on('error', swallowError)
         .pipe(gulp.dest('site'));
@@ -125,14 +126,26 @@ function postTemplateChanges(){
 // Watches changes of sass and templates
 // TO DO: Run template changes and sass changes individually
 function watchChanges(){
+    generateSvg();  // this should be on top because it fills data in a global variable, svgs
     preTemplateChanges();
     postTemplateChanges();
     sassChange();
-    gulp.watch(['templates-pre/**/*.html','templates-post/**/*.html','sass/**/*.scss'], ['pre-templates','post-templates','sass']);
+    gulp.watch([
+        'templates-pre/**/*.html',
+        'templates-post/**/*.html',
+        'sass/**/*.scss',
+        'bundle-svgs/**/*.svg'
+    ], [
+        'pre-templates',
+        'post-templates',
+        'sass',
+        'generate-svg'
+    ]);
 }
 
 // Tasks
 gulp.task('sass', sassChange);
 gulp.task('pre-templates', preTemplateChanges);
 gulp.task('post-templates', postTemplateChanges);
+gulp.task('generate-svg', generateSvg);
 gulp.task('watch', watchChanges);
