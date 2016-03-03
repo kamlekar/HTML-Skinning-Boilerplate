@@ -22,7 +22,7 @@ You can also write css faster using sass and create svg sprite-sheet.
 ###How it works?
 
 - To write sass, you can refer [sass documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
-- I already implemented common layouting styles in `_mini-bootstrap.scss` file, with comments.
+- I implemented common layouting styles in `_mini-bootstrap.scss` file, with comments.
 - To write in `nunjucks` template, you can refer [nunjucks documentation](https://mozilla.github.io/nunjucks/).
 - The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
 - Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet. **This svg spritesheet works only when run on any web server**
@@ -42,9 +42,12 @@ That's it!! everything is ready now.
 
 ###Usage
 
-To watch for template and sass changes, `cd` to project directory and then `gulp watch`.
+To watch for pre-template, post-template, sass changes and svg sprite change, `cd` to project directory and then `gulp watch`.
 
-> Note: _if you are doing the above step frequently, you can create a batch extension file. I have given examples for Windows and Mac OS which you can find in win-build and mac-build folders respectively._
+That's it!!
+
+The configuration will automatically watch for the changes.
+
 
 ###References:
 
