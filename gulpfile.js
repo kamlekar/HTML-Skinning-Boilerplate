@@ -41,33 +41,39 @@ catch(e){
 /*****************************************/
 function generateSvg(){
     svgs = [];  // Initializing
-    return folders('bundle-svgs/', function(folder){
-        // 'folders' function will loop over all the folders
-        // Storing the folder names in array to use this array to load the svg script
-        svgs.push(folder);
-        // gutil.log(svgs);
-        return gulp
-            // looks for each folder inside "bundle-svgs" folder
-            .src('bundle-svgs/' + folder + '/*.svg')
-            .pipe(svgmin(function (file) {
-                var prefix = path.basename(file.relative, path.extname(file.relative));
-                return {
-                    plugins: [{
-                        cleanupIDs: {
-                            prefix: prefix + '-',
-                            minify: true
-                        }
-                    }]
-                }
-            }))
-            .pipe(svgstore())
-            // Uncomment the below lines to add additional attributes to the generated SVG Sprite
-            // .pipe(cheerio(function($, file){
-            //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
-            // }))
-            // Store the generated svg sprite in "site/assets/images/" folder
-            .pipe(gulp.dest('site/assets/images/'));
-    })();
+    try{
+        return folders('bundle-svgs/', function(folder){
+            // 'folders' function will loop over all the folders
+            // Storing the folder names in array to use this array to load the svg script
+            svgs.push(folder);
+            // gutil.log(svgs);
+            return gulp
+                // looks for each folder inside "bundle-svgs" folder
+                .src('bundle-svgs/' + folder + '/*.svg')
+                .pipe(svgmin(function (file) {
+                    var prefix = path.basename(file.relative, path.extname(file.relative));
+                    return {
+                        plugins: [{
+                            cleanupIDs: {
+                                prefix: prefix + '-',
+                                minify: true
+                            }
+                        }]
+                    }
+                }))
+                .pipe(svgstore())
+                // Uncomment the below lines to add additional attributes to the generated SVG Sprite
+                // .pipe(cheerio(function($, file){
+                //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
+                // }))
+                // Store the generated svg sprite in "site/assets/images/" folder
+                .pipe(gulp.dest('site/assets/images/'));
+        })();
+    }
+    catch(ex){
+        // This function will break mostly when there are no svgs or svg folders in 'bundle-svgs'
+        gutil.log(ex);
+    }
 };
 
 
