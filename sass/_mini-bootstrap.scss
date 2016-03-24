@@ -65,6 +65,8 @@ $normalFontSize: 12px;
 		width: 0px;
 		display: inline-block;
 		vertical-align: middle;
+		/* inline-block keeps a blank space which could trouble when the child element tries to stretch by 100% inside the parent element */
+	    margin-left: -4px; 
 	}
 	/* This will work if you have only one child container */
 	/* if you have more child containers, wrap them in a div and make it as child of this parent container */

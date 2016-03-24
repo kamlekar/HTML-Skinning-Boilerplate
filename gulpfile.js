@@ -107,7 +107,11 @@ function preTemplateChanges(){
             lib_path: assets_path + "libs/",
             img_path: assets_path + "images/",
             svgs: svgs,
-            fs: fs
+            fs: fs,
+            /* The below setting is used to hide ".html" extension in url paths */
+            /* It will generate a folder with file's name and insert the content in index.html file */
+            /* Example: if you pass "home.html", it will compile to "home/index.html" */
+            // ext: '/index.html'
         }))
         .on('error', function(error){
             gutil.log(error.message);

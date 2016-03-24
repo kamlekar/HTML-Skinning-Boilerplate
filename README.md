@@ -34,19 +34,15 @@ You can also write css faster using sass and create svg sprite-sheet.
 Here are some easy installation steps:
 
 - This Boilerplate needs [nodejs](https://nodejs.org/download/) (_for templating and for sass_). So, install it first.
-- After installing nodejs, fork/download this repo in your local.
+- After installing nodejs, clone this repo in your local.
+    
+      git clone https://github.com/kamlekar/html-skinning-boilerplate "your-project-name"
+
 - `cd` to the project folder through CLI.
 - `npm install` (add prefix `sudo` in mac, if necessary).
+- `gulp watch` (_this will watch for changes related to sass, templates, svg spritesheet_)
 
-That's it!! everything is ready now.
-
-###Usage
-
-To watch for pre-template, post-template, sass changes and svg sprite change, `cd` to project directory and then `gulp watch`.
-
-That's it!!
-
-The configuration will automatically watch for the changes.
+That's it!! everything is ready now. From next time, you just need to run `gulp watch` from your project folder through CLI.
 
 
 ###References:
