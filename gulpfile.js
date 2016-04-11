@@ -14,6 +14,7 @@ var svgmin = require('gulp-svgmin');
 var concat = require('gulp-concat');
 var path = require('path');
 var fs = require('fs');
+var rename = require('gulp-rename');
 
 
 /*****************************************/
@@ -68,9 +69,7 @@ function generateSvg(){
                     .on('error', function(error){
                         gutil.log(error.message);
                     })
-                    .pipe(svgstore({
-                        fileName: pageName + ".svg"
-                    }))
+                    .pipe(svgstore())
                     // Uncomment the below lines to add additional attributes to the generated SVG Sprite
                     // .pipe(cheerio(function($, file){
                     //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
@@ -78,6 +77,7 @@ function generateSvg(){
                     .on('error', function(error){
                         gutil.log(error.message);
                     })
+                    .pipe(rename(pageName + '.svg'))
                     // Store the generated svg sprite in "site/assets/images/" folder
                     .pipe(gulp.dest('site/assets/images/'));
             }

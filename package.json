@@ -17,6 +17,7 @@
     "gulp-nunjucks-render": "^1.0.0",
     "gulp-path": "^2.0.1",
     "gulp-postcss": "^6.1.0",
+    "gulp-rename": "^1.2.2",
     "gulp-prettify": "^0.3.0",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",
