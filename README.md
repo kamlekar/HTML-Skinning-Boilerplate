@@ -4,6 +4,8 @@
 
 This is a starter kit for HTML Developers, useful to develop HTMLs faster. This uses [sass](http://sass-lang.com/), [gulp](http://gulpjs.com/) and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
 
+Please read [**Wiki**](https://github.com/kamlekar/HTML-Skinning-Boilerplate/wiki).
+
 ###Advantages:
 
 - Obeys [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) concept (_Don't repeat yourself_) for both css and html.
@@ -13,9 +15,9 @@ This is a starter kit for HTML Developers, useful to develop HTMLs faster. This 
 
 ###How it is useful?
 
-Suppose, you got a requirement where you just need to develop six HTML pages from the provided images by Designers. There are many common sections which you are copy pasting for each page of HTML files (_let say it is Header_). Later, the client/designer proposed some changes in header part. In that case, you need to change the header part in a page and need to copy paste again in all the six pages. 
+Suppose, you got a requirement where you just need to develop six HTML pages from the provided images by Designers. There are many common sections which you are copy pasting for each page of HTML files (_let say it is Header_). Later, the client/designer proposed some changes in header part. In that case, you need to change the header part in a page and need to copy paste again in all the six pages.
 
-And if the changes are frequent in all common sections and there are more pages, it is quite common we miss to change the modified section in a page or two. This boilerplate handles this kind of situations and many more. 
+And if the changes are frequent in all common sections and there are more pages, it is quite common we miss to change the modified section in a page or two. This boilerplate handles this kind of situations and many more.
 
 You can also write css faster using sass and create svg sprite-sheet.
 
@@ -35,7 +37,7 @@ Here are some easy installation steps:
 
 - This Boilerplate needs [nodejs](https://nodejs.org/download/) (_for templating and for sass_). So, install it first.
 - After installing nodejs, clone this repo in your local.
-    
+
       git clone https://github.com/kamlekar/html-skinning-boilerplate "your-project-name"
 
 - `cd` to the project folder through CLI.
@@ -60,4 +62,4 @@ PS: Contributors are welcome :)
 #####1) I am getting following error while trying to install node dependencies in command prompt.
 > Couldn't install optional dependency: Unsupported
 
-For this Boilerplate, the following fix will work. Check this [link](https://github.com/npm/npm/issues/9204#issuecomment-157653267). 
+For this Boilerplate, the following fix will work. Check this [link](https://github.com/npm/npm/issues/9204#issuecomment-157653267).

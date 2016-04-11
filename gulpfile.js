@@ -15,6 +15,7 @@ var concat = require('gulp-concat');
 var path = require('path');
 var fs = require('fs');
 var rename = require('gulp-rename');
+var config = require('./config.json');
 
 
 /*****************************************/
@@ -50,13 +51,13 @@ function generateSvg(){
 
                 var pageSpecificSVGs = svgGrouping[pageName]; // Array
 
+
                 // mapping the page specific variables with relative path
                 var newPageSpecificSVGs = pageSpecificSVGs.map(function(p){ return 'bundle-svgs/' + p + '.svg' });
-                return gulp
+                gulp
                     .src(newPageSpecificSVGs)
                     .pipe(svgmin(function(file){
                         var prefix = path.basename(file.relative, path.extname(file.relative));
-                        console.log(prefix);
                         return {
                             plugins: [{
                                 cleanupIDs: {
@@ -153,17 +154,10 @@ function watchChanges(){
     preTemplateChanges();
     postTemplateChanges();
     sassChange();
-    gulp.watch([
-        'templates-pre/**/*.html',
-        'templates-post/**/*.html',
-        'sass/**/*.scss',
-        'bundle-svgs/**/*.svg'
-    ], [
-        'pre-templates',
-        'post-templates',
-        'sass',
-        'generate-svg'
-    ]);
+    gulp.watch(['templates-pre/**/*.html'],['pre-templates']);
+    gulp.watch(['templates-post/**/*.html'],['post-templates']);
+    gulp.watch(['sass/**/*.scss',],['sass']);
+    gulp.watch(['bundle-svgs/**/*.svg', 'config.json'],['generate-svg']);
 }
 
 // Tasks
