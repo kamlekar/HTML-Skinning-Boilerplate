@@ -1,0 +1,11 @@
+{% macro script(files) %}
+	{% for file in files %}
+		<script type="text/javascript" src="assets/{{ file }}.js"></script>
+	{% endfor %}
+{% endmacro %}
+
+{% macro styles(files) %}
+	{% for file in files %}
+		<link rel="stylesheet" type="text/css" href="{{ file }}"/>
+	{% endfor %}
+{% endmacro %}

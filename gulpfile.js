@@ -25,54 +25,67 @@ var fs = require('fs');
 // The below are the example folder names, holding svgs for individual pages.
 // We will pass these folder names as array to generate the svg sprite-sheet.
 var svgs = [];
-var svgObj = [];
-try{
-    for(var j=0;j<svgs.length;j++){
-        var fileName = svgs[j];
-        svgObj.push(fs.readFileSync('site/assets/images/' + fileName + '.svg', 'utf8'));
-    }
-}
-catch(e){
-    console.log(e);
-}
+// var svgObj = [];
+// try{
+//     for(var j=0;j<svgs.length;j++){
+//         var fileName = svgs[j];
+//         svgObj.push(fs.readFileSync('site/assets/images/' + fileName + '.svg', 'utf8'));
+//     }
+// }
+// catch(e){
+//     console.log(e);
+// }
 
 /*****************************************/
 /*******SVG precompiling function********/
 /*****************************************/
 function generateSvg(){
-    svgs = [];  // Initializing
-    try{
-        return folders('bundle-svgs/', function(folder){
-            // 'folders' function will loop over all the folders
-            // Storing the folder names in array to use this array to load the svg script
-            svgs.push(folder);
-            // gutil.log(svgs);
-            return gulp
-                // looks for each folder inside "bundle-svgs" folder
-                .src('bundle-svgs/' + folder + '/*.svg')
-                .pipe(svgmin(function (file) {
-                    var prefix = path.basename(file.relative, path.extname(file.relative));
-                    return {
-                        plugins: [{
-                            cleanupIDs: {
-                                prefix: prefix + '-',
-                                minify: true
-                            }
-                        }]
-                    }
-                }))
-                .pipe(svgstore())
-                // Uncomment the below lines to add additional attributes to the generated SVG Sprite
-                // .pipe(cheerio(function($, file){
-                //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
-                // }))
-                // Store the generated svg sprite in "site/assets/images/" folder
-                .pipe(gulp.dest('site/assets/images/'));
-        })();
-    }
-    catch(ex){
-        // This function will break mostly when there are no svgs or svg folders in 'bundle-svgs'
-        gutil.log(ex);
+    var svgGrouping = config['svg-grouping'];
+    if(svgGrouping){
+        try{
+            for(var pageName in svgGrouping){
+                // storing all page names in svgs global variable
+                svgs.push(pageName);
+
+                var pageSpecificSVGs = svgGrouping[pageName]; // Array
+
+                // mapping the page specific variables with relative path
+                var newPageSpecificSVGs = pageSpecificSVGs.map(function(p){ return 'bundle-svgs/' + p + '.svg' });
+                return gulp
+                    .src(newPageSpecificSVGs)
+                    .pipe(svgmin(function(file){
+                        var prefix = path.basename(file.relative, path.extname(file.relative));
+                        console.log(prefix);
+                        return {
+                            plugins: [{
+                                cleanupIDs: {
+                                    prefix: prefix + '-',
+                                    minify: true
+                                }
+                            }]
+                        }
+                    }))
+                    .on('error', function(error){
+                        gutil.log(error.message);
+                    })
+                    .pipe(svgstore({
+                        fileName: pageName + ".svg"
+                    }))
+                    // Uncomment the below lines to add additional attributes to the generated SVG Sprite
+                    // .pipe(cheerio(function($, file){
+                    //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
+                    // }))
+                    .on('error', function(error){
+                        gutil.log(error.message);
+                    })
+                    // Store the generated svg sprite in "site/assets/images/" folder
+                    .pipe(gulp.dest('site/assets/images/'));
+            }
+        }
+        catch(ex){
+            // This function will break mostly when there are no svgs or svg folders in 'bundle-svgs'
+            gutil.log(ex);
+        }
     }
 };
 
