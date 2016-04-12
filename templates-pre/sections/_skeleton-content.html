@@ -10,7 +10,7 @@
 		<!-- CSS files -->
 		<link rel="stylesheet" href="{{ css_path }}main.css" type="text/css" />
 		<!-- script files -->
-		{% block include_head %}{% endblock %}
+		{% block before_head_end %}{% endblock %}
 
 		<!-- SVG Sprite preloading -->
 		<!-- TO DO: Inject svg content inside html, instead of sending a request -->
@@ -34,6 +34,6 @@
 		<!-- HTML script path -->
 		<script src="//mozilla.github.io/nunjucks/files/nunjucks.js" type="text/javascript"></script>
 		<script src="{{ lib_path }}html.js" type="text/javascript"></script>
-		{% block include_footer %}{% endblock %}
+		{% block before_body_end %}{% endblock %}
 	</body>
 </html>
