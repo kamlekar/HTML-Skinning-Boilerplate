@@ -1,10 +1,10 @@
 
 
 <!-- For getting svg content from HTTP request -->
-
+{% if svgName %}
 <script>
 	(function (doc) {
-		var svgs = ['{{ svgName }}'];	
+		var svgs = ['{{ svgName }}'];
 		for(var i = 0; i < svgs.length; i++){
    			var scripts = doc.getElementsByTagName('script')
    			var script = scripts[scripts.length - 1]
@@ -29,3 +29,4 @@
 		}
 	})(document)
 </script>
+{% endif %}
