@@ -2,7 +2,7 @@
 <html lang="en-us">
 	<head>
 		{% set globalTitle = "HTML Skinning Boilerplate" %}
-		<title>{% if pageTitle %}{{ pageTitle }}{% else %}{% globalTitle %}</title>
+		<title>{% if pageTitle %}{{ pageTitle }}{% else %}{{ globalTitle }}{% endif %}</title>
 		<!-- meta tags -->
 		<!-- don't mention any other tags above the below meta tag -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
