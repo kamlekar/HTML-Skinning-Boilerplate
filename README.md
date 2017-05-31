@@ -1,19 +1,19 @@
 
 
-##HTML Skinning Boilerplate
+## HTML Skinning Boilerplate
 
 This is a starter kit for HTML Developers, useful to develop HTMLs faster. This uses [sass](http://sass-lang.com/), [gulp](http://gulpjs.com/) and [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render).
 
 Please read [**Wiki**](https://github.com/kamlekar/HTML-Skinning-Boilerplate/wiki).
 
-###Advantages:
+### Advantages:
 
 - Obeys [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) concept (_Don't repeat yourself_) for both css and html.
 - Manage all svgs as SVG sprite-sheet.
 - No need to run any web server (_optional_).
 - Later, you can use the same setup to create a single page application based on [nunjucks](https://mozilla.github.io/nunjucks/) template engine. (_in that case, don't use gulp-nunjucks-render_)
 
-###How it is useful?
+### How it is useful?
 
 Suppose, you got a requirement where you just need to develop six HTML pages from the provided images by Designers. There are many common sections which you are copy pasting for each page of HTML files (_let say it is Header_). Later, the client/designer proposed some changes in header part. In that case, you need to change the header part in a page and need to copy paste again in all the six pages.
 
@@ -21,7 +21,7 @@ And if the changes are frequent in all common sections and there are more pages,
 
 You can also write css faster using sass and create svg sprite-sheet.
 
-###How it works?
+### How it works?
 
 - To write sass, you can refer [sass documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
 - I implemented common layouting styles in `_mini-bootstrap.scss` file, with comments.
@@ -31,7 +31,7 @@ You can also write css faster using sass and create svg sprite-sheet.
 
 > Note: _you can also write css in `.scss` files if you aren't aware of sass and same applies to nunjucks templating._
 
-###Installation:
+### Installation:
 
 Here are some easy installation steps:
 
@@ -47,7 +47,7 @@ Here are some easy installation steps:
 That's it!! everything is ready now. From next time, you just need to run `gulp watch` from your project folder through CLI.
 
 
-###References:
+### References:
 
 Very nice articles to know about SVG Spritesheets
 
@@ -57,9 +57,9 @@ Very nice articles to know about SVG Spritesheets
 
 PS: Contributors are welcome :)
 
-###FAQ:
+### FAQ:
 
-#####1) I am getting following error while trying to install node dependencies in command prompt.
+##### 1) I am getting following error while trying to install node dependencies in command prompt.
 > Couldn't install optional dependency: Unsupported
 
 For this Boilerplate, the following fix will work. Check this [link](https://github.com/npm/npm/issues/9204#issuecomment-157653267).
