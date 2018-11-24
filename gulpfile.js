@@ -152,17 +152,19 @@ function preTemplateChanges(){
     // use !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
     return gulp.src(PRE_MAIN_TEMPLATES)
         .pipe(nunjucksRender({
-            // Custom global variables for pre compiling HTML templates
-            css_path: CSS_PATH,
-            js_path: JS_PATH,
-            lib_path: ASSETS_PATH + "libs/",
-            img_path: IMAGES_PATH,
-            svgs: svgs,
-            fs: fs,
-            /* The below setting is used to hide ".html" extension in url paths */
-            /* It will generate a folder with file's name and insert the content in index.html file */
-            /* Example: if you pass "home.html", it will compile to "home/index.html" */
-            // ext: '/index.html'
+            data: {
+                // Custom global variables for pre compiling HTML templates
+                css_path: CSS_PATH,
+                js_path: JS_PATH,
+                lib_path: ASSETS_PATH + "libs/",
+                img_path: IMAGES_PATH,
+                svgs: svgs,
+                fs: fs,
+                /* The below setting is used to hide ".html" extension in url paths */
+                /* It will generate a folder with file's name and insert the content in index.html file */
+                /* Example: if you pass "home.html", it will compile to "home/index.html" */
+                // ext: '/index.html'
+            }
         }))
         .on('error', function(error){
             gutil.log(error.message);

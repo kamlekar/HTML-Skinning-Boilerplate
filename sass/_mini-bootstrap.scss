@@ -4,84 +4,13 @@
 /**********************/
 /* Variables */
 $normalFontSize: 12px;
-/* The below styles can be used to show a element on left and other on right */
-/* There should be only two elements adjacent to each other */
-.hr-strch:first-child{
-	display: table-cell;
-	vertical-align: middle;
-	width: 100%;
-	& + .hr-strch{
-		display: table-cell;
-		vertical-align: middle;
-		white-space: nowrap;
-	}
-}
-/* The below styles can be used to show a element on top and other on bottom */
-/* There should be only two elements adjacent to each other */
-.vr-strch:first-child{
-	display: table-row;
-	width: 100%;
-	& + .vr-strch{
-		display: table-row;
-		white-space: nowrap;
-	}
-}
-/* To stretch all the elements equally inside a container */
-/* FAQ: what to do when I don't want to stretch them with equal widths? 
-	 A: don't use this class, add your own */
-.eq-tb{
-	display: table;
-	table-layout: fixed;
-	/* Don't try to override these classes, instead wrap them in a container with your dimensions */
-	width: 100%;
-	height: 100%;
-}
-/* To stretch completely inside the container, give height: 100%; */
-.tb-row{
-	display: table-row;
-	&::after{
-		content: "";
-	}
-}
-/* To stretch completely inside the container, give width: 100%; */
-.tb-cell{
-	display: table-cell;
-	vertical-align: middle;
-}
+
 /* Clearfix */
 %clrfx{
 	&::after{
 		content: "";
 		clear: both;
 		display: block;
-	}
-}
-/* vertically middle a container */
-/* apply this style to the parent in which the child need to be vertically aligned */
-.v-algn-cntr{
-	&::before{
-		content: "";
-		height: 100%;
-		width: 0px;
-		display: inline-block;
-		vertical-align: middle;
-		/* inline-block keeps a blank space which could trouble when the child element tries to stretch by 100% inside the parent element */
-	    margin-left: -4px; 
-	}
-	/* This will work if you have only one child container */
-	/* if you have more child containers, wrap them in a div and make it as child of this parent container */
-	*:first-child{
-		display: inline-block;
-		vertical-align: middle;
-	}
-}
-/* The below style will remove the white space which comes while using display: inline-block; */
-/* Apply this style to the parent container of the inline block elements */
-/* Suggestion: use display: inline-block when you need to vertically align elements otherwise go with float: left */
-.rst-fnt{
-	font-size: 0px;
-	& > *{ /* Warning: specificity is greater than normal */
-		font-size: $normalFontSize; /* or 1rem */
 	}
 }
 .ellipsis {
