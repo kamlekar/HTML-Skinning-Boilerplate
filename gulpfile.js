@@ -20,18 +20,18 @@ var config          = require('./config.json');
 
 // Variables
 
-var IMAGES_PATH         = 'site/assets/images/';
+var IMAGES_PATH         = 'dist/assets/images/';
 var SVGS_SOURCE_PATH    = 'bundle-svgs/';
 var SVGS_ALL_PATH       = 'bundle-svgs/**/*.svg';
 var SASS_PATH           = 'sass/**/*.scss';
-var CSS_PATH            = 'site/assets/css/';
+var CSS_PATH            = 'dist/assets/css/';
 var ASSETS_PATH         = "assets/";
 var POST_TEMPLATES_PATH = ['templates-post/**/*.html'];
 var POST_COMPILED_TEMP  = 'templates.js';
 var PRE_TEMPLATES_PATH  = ['templates-pre/'];
 var PRE_MAIN_TEMPLATES  = 'templates-pre/**/!(_)*.html';
 var PRE_ALL_TEMPLATES   = ['templates-pre/**/*.html'];
-var JS_PATH             = 'site/assets/js/';
+var JS_PATH             = 'dist/assets/js/';
 
 var removeHtmlExtension = false; // Make it true to remove .html extension from pre compiled html templates
 
@@ -48,7 +48,7 @@ var svgs = [];
 // try{
 //     for(var j=0;j<svgs.length;j++){
 //         var fileName = svgs[j];
-//         svgObj.push(fs.readFileSync('site/assets/images/' + fileName + '.svg', 'utf8'));
+//         svgObj.push(fs.readFileSync('dist/assets/images/' + fileName + '.svg', 'utf8'));
 //     }
 // }
 // catch(e){
@@ -97,7 +97,7 @@ function generateSvg(){
                         gutil.log(error.message);
                     })
                     .pipe(rename(pageName + '.svg'))
-                    // Store the generated svg sprite in "site/assets/images/" folder
+                    // Store the generated svg sprite in "dist/assets/images/" folder
                     .pipe(gulp.dest(IMAGES_PATH));
             }
         }
@@ -134,7 +134,7 @@ function server() {
     try{
         connect.server({
             // port: '8080',
-            root: 'site'
+            root: 'dist'
         });
     }
     catch(e){
@@ -188,7 +188,7 @@ function preTemplateChanges(){
             }
         }))
         // .on('error', swallowError)
-        .pipe(gulp.dest('site'));
+        .pipe(gulp.dest('dist'));
 }
 /*********************************************************/
 /**** Templates post-rendering/pre-compiling function ****/
@@ -217,7 +217,7 @@ gulp.task('sass', sassChange);
 gulp.task('pre-templates', preTemplateChanges);
 gulp.task('post-templates', postTemplateChanges);
 gulp.task('generate-svg', generateSvg);
-gulp.task('watch', 
+gulp.task('default', 
     [
         'generate-svg',  // this should be on top because it fills data in a global variable, svgs
         'pre-templates', 

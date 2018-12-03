@@ -24,12 +24,14 @@ You can also write css faster using sass and create svg sprite-sheet.
 ### How it works?
 
 - To write sass, you can refer [sass documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
-- I implemented common layouting styles in `_mini-bootstrap.scss` file, with comments.
+- I implemented common layouting styles in `_mini-bootstrap.scss` file, with comments. You can extend it as you want.
 - To write in `nunjucks` template, you can refer [nunjucks documentation](https://mozilla.github.io/nunjucks/).
 - The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
 - Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet. **This svg spritesheet works only when run on any web server**
 
-> Note: _you can also write css in `.scss` files if you aren't aware of sass and same applies to nunjucks templating._
+> Note1: _you can also write css in `.scss` files if you aren't aware of sass and same applies to nunjucks templating._
+
+> Note2: Don't change the compiled files i.e `.html` and `.css` in `dist` folder.
 
 ### Installation:
 
