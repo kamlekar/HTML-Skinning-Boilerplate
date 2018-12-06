@@ -33,20 +33,24 @@ You can also write css faster using sass and create svg sprite-sheet.
 
 > Note2: Don't change the compiled files i.e `.html` and `.css` in `dist` folder.
 
+### Extend your project:
+
+clone this repo in your local.
+
+      git clone https://github.com/kamlekar/html-skinning-boilerplate "your-project-name"
+
 ### Installation:
 
 Here are some easy installation steps:
 
-- This Boilerplate needs [nodejs](https://nodejs.org/download/) (_for templating and for sass_). So, install it first.
-- After installing nodejs, clone this repo in your local.
+- Make sure [nodejs](https://nodejs.org/download/) (_for templating, sass and SVG Spritesheet_). So, install it first.
+- After installing nodejs, `cd` to the project folder through CLI.
+- `npm install` (add prefix `sudo` in mac/linux, if necessary).
+- `gulp` (_this will watch for changes related to sass, templates, svg spritesheet_)
 
-      git clone https://github.com/kamlekar/html-skinning-boilerplate "your-project-name"
+That's it!! everything is ready now. Always make sure to run `gulp` from your project folder through CLI, before working on the code.
 
-- `cd` to the project folder through CLI.
-- `npm install` (add prefix `sudo` in mac, if necessary).
-- `gulp watch` (_this will watch for changes related to sass, templates, svg spritesheet_)
-
-That's it!! everything is ready now. From next time, you just need to run `gulp watch` from your project folder through CLI.
+> Note: Work only on `.scss` and `.nunj` files. Don't try to change `.css` and `.html` files in `dist/` folder.
 
 
 ### References:
