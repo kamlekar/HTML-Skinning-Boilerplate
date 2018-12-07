@@ -9,4 +9,4 @@ Here are some easy installation steps:
 
 That's it!! everything is ready now. Always make sure to run `gulp` from your project folder through command prompt, before working on the code.
 
-> Note: Work only on `.scss` and `.nunj` files. Don't try to change `.css` and `.html` files in `dist/` folder.
+> Note: Work only on `.scss` and `.pug` files. Don't try to change `.css` and `.html` files in `dist/` folder.

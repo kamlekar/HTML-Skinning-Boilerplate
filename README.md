@@ -25,7 +25,7 @@ You can also write css faster using sass and create svg sprite-sheet.
 
 - To write sass, you can refer [sass documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
 - I implemented common layouting styles in `_mini-bootstrap.scss` file, with comments. You can extend it as you want.
-- To write in `nunjucks` template, you can refer [nunjucks documentation](https://mozilla.github.io/nunjucks/).
+- To write in `pug` template, you can refer [pug documentation](https://pugjs.org/api/getting-started.html).
 - The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
 - Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet. **This svg spritesheet works only when run on any web server**
 
@@ -50,7 +50,7 @@ Here are some easy installation steps:
 
 That's it!! everything is ready now. Always make sure to run `gulp` from your project folder through command prompt, before working on the code.
 
-> Note: Work only on `.scss` and `.nunj` files. Don't try to change `.css` and `.html` files in `dist/` folder.
+> Note: Work only on `.scss` and `.pug` files. Don't try to change `.css` and `.html` files in `dist/` folder.
 
 
 ### References:
