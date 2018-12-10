@@ -11,6 +11,7 @@
     "gulp": "^3.9.0",
     "gulp-cheerio": "^0.6.2",
     "gulp-concat": "^2.6.0",
+    "gulp-connect": "^5.6.1",
     "gulp-data": "^1.2.0",
     "gulp-folders": "^1.1.0",
     "gulp-merge-media-queries": "^0.2.1",

@@ -12,6 +12,7 @@ var gutil           = require('gulp-util');
 var folders         = require('gulp-folders');
 var svgmin          = require('gulp-svgmin');
 var concat          = require('gulp-concat');
+var connect         = require('gulp-connect');
 var path            = require('path');
 var fs              = require('fs');
 var rename          = require('gulp-rename');
@@ -26,11 +27,9 @@ var SVGS_ALL_PATH       = 'bundle-svgs/**/*.svg';
 var SASS_PATH           = 'sass/**/*.scss';
 var CSS_PATH            = 'dist/assets/css/';
 var ASSETS_PATH         = "assets/";
-var POST_TEMPLATES_PATH = ['templates-post/**/*.html'];
-var POST_COMPILED_TEMP  = 'templates.js';
-var PRE_TEMPLATES_PATH  = ['templates-pre/'];
-var PRE_MAIN_TEMPLATES  = 'templates-pre/**/!(_)*.html';
-var PRE_ALL_TEMPLATES   = ['templates-pre/**/*.html'];
+var PRE_TEMPLATES_PATH  = ['templates/'];
+var PRE_MAIN_TEMPLATES  = 'templates/**/!(_)*.nunj';
+var PRE_ALL_TEMPLATES   = ['templates/**/*.nunj'];
 var JS_PATH             = 'dist/assets/js/';
 
 var removeHtmlExtension = false; // Make it true to remove .html extension from pre compiled html templates
@@ -44,16 +43,6 @@ var removeHtmlExtension = false; // Make it true to remove .html extension from 
 // The below are the example folder names, holding svgs for individual pages.
 // We will pass these folder names as array to generate the svg sprite-sheet.
 var svgs = [];
-// var svgObj = [];
-// try{
-//     for(var j=0;j<svgs.length;j++){
-//         var fileName = svgs[j];
-//         svgObj.push(fs.readFileSync('dist/assets/images/' + fileName + '.svg', 'utf8'));
-//     }
-// }
-// catch(e){
-//     console.log(e);
-// }
 
 /*****************************************/
 /*******SVG precompiling function********/
@@ -133,7 +122,7 @@ function sassChange(){
 function server() {
     try{
         connect.server({
-            // port: '8080',
+            port: '4100',
             root: 'dist'
         });
     }
@@ -190,42 +179,31 @@ function preTemplateChanges(){
         // .on('error', swallowError)
         .pipe(gulp.dest('dist'));
 }
-/*********************************************************/
-/**** Templates post-rendering/pre-compiling function ****/
-/*********************************************************/
-function postTemplateChanges(){
-    return gulp.src(POST_TEMPLATES_PATH)
-    .pipe(postTemplate({
-        name: function (file) {
-            return path.basename(file.relative, path.extname(file.relative));
-        }
-    }))
-    .pipe(concat(POST_COMPILED_TEMP))
-    .pipe(gulp.dest(JS_PATH));
-}
 // Watches changes of sass and templates
 // TO DO: Run template changes and sass changes individually
 function watchChanges(){
-    gulp.watch([PRE_ALL_TEMPLATES, 'config.json'],['pre-templates']);
-    gulp.watch(POST_TEMPLATES_PATH,['post-templates']);
+    gulp.watch([PRE_ALL_TEMPLATES, 'config.json'],['templates']);
     gulp.watch(SASS_PATH,['sass']);
     gulp.watch([SVGS_ALL_PATH, 'config.json'],['generate-svg']);
 }
 
 // Tasks
 gulp.task('sass', sassChange);
-gulp.task('pre-templates', preTemplateChanges);
-gulp.task('post-templates', postTemplateChanges);
+gulp.task('templates', preTemplateChanges);
 gulp.task('generate-svg', generateSvg);
-gulp.task('default', 
+gulp.task('live', server);
+gulp.task('watch', 
     [
         'generate-svg',  // this should be on top because it fills data in a global variable, svgs
-        'pre-templates', 
-        'post-templates', 
-        'sass'
+        'templates', 
+        'sass',
+        'live'
     ],  watchChanges
 );
 
+gulp.task('default', ['watch']);
+
+gulp.task('run', ['generate-svg', 'sass', 'templates'])
 
 
 
