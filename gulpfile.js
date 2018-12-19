@@ -3,15 +3,12 @@ var sass            = require('gulp-sass');
 var postcss         = require('gulp-postcss');
 var autoprefixer    = require('autoprefixer');
 var mmq             = require('gulp-merge-media-queries');
-var nunjucksRender  = require('gulp-nunjucks-render');
-var postTemplate    = require('gulp-nunjucks');
+var pug             = require('gulp-pug');
 var sourcemaps      = require('gulp-sourcemaps');
 var prettify        = require('gulp-prettify');
 var svgstore        = require('gulp-svgstore');
 var gutil           = require('gulp-util');
-var folders         = require('gulp-folders');
 var svgmin          = require('gulp-svgmin');
-var concat          = require('gulp-concat');
 var connect         = require('gulp-connect');
 var path            = require('path');
 var fs              = require('fs');
@@ -22,14 +19,14 @@ var config          = require('./config.json');
 // Variables
 
 var IMAGES_PATH         = 'dist/assets/images/';
+var EXT_HTML            = '.pug';
 var SVGS_SOURCE_PATH    = 'bundle-svgs/';
 var SVGS_ALL_PATH       = 'bundle-svgs/**/*.svg';
 var SASS_PATH           = 'sass/**/*.scss';
 var CSS_PATH            = 'dist/assets/css/';
 var ASSETS_PATH         = "assets/";
-var PRE_TEMPLATES_PATH  = ['templates/'];
-var PRE_MAIN_TEMPLATES  = 'templates/**/!(_)*.nunj';
-var PRE_ALL_TEMPLATES   = ['templates/**/*.nunj'];
+var PRE_MAIN_TEMPLATES  = `templates/**/!(_)*${EXT_HTML}`;
+var PRE_ALL_TEMPLATES   = [`templates/**/*${EXT_HTML}`];
 var JS_PATH             = 'dist/assets/js/';
 
 var removeHtmlExtension = false; // Make it true to remove .html extension from pre compiled html templates
@@ -137,10 +134,9 @@ function server() {
 function preTemplateChanges(){
     config = requireUncached('./config.json');
     var slugs = config.slugs;
-    nunjucksRender.nunjucks.configure(PRE_TEMPLATES_PATH, { watch: false });
     // use !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
     return gulp.src(PRE_MAIN_TEMPLATES)
-        .pipe(nunjucksRender({
+        .pipe(pug({
             data: {
                 // Custom global variables for pre compiling HTML templates
                 css_path: CSS_PATH,
