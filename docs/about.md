@@ -26,6 +26,7 @@ You can also write css faster using sass and create svg sprite-sheet.
 - To write sass, you can refer [sass documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
 - I implemented common layouting styles in `_mini-bootstrap.scss` file, with comments. You can extend it as you want.
 - To write in `pug` template, you can refer [pug documentation](https://pugjs.org/api/getting-started.html).
+- To write in `nunjucks` template, you can refer [nunjucks documentation](https://mozilla.github.io/nunjucks/).
 - The whole setup runs on gulp, which I tried to explain in this [link](http://stackoverflow.com/a/32228623/1577396)
 - Using [gulp-svgstore](https://github.com/w0rm/gulp-svgstore), I wrote a small code in `gulpfile.js` which will be helpful to create svg sprite-sheet. **This svg spritesheet works only when run on any web server**
 
@@ -37,7 +38,15 @@ You can also write css faster using sass and create svg sprite-sheet.
 
 clone this repo in your local.
 
-      git clone https://github.com/kamlekar/html-skinning-boilerplate "your-project-name"
+    git clone https://github.com/kamlekar/html-skinning-boilerplate "your-project-name"
+    # Delete .git hidden folder
+    git init
+    git add .
+    git commit -m "Initial setup"
+    # link: https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+    git remote add origin {remote-repository-URL}
+    git remote -v
+    git push origin master
 
 ### Installation:
 
@@ -50,7 +59,7 @@ Here are some easy installation steps:
 
 That's it!! everything is ready now. Always make sure to run `gulp` from your project folder through command prompt, before working on the code.
 
-> Note: Work only on `.scss` and `.pug` files. Don't try to change `.css` and `.html` files in `dist/` folder.
+> Note: Work only on `.scss` and `.pug` / `.nunj` files. Don't try to change `.css` and `.html` files in `dist/` folder.
 
 
 ### References:
