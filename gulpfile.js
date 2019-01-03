@@ -20,6 +20,7 @@ var config          = require('./config.json');
 var postcss         = require('gulp-postcss');
 var uncss           = require('postcss-uncss');
 var clean           = require('postcss-clean');
+var plumber         = require('gulp-plumber');
 
 
 // Variables
@@ -32,7 +33,7 @@ var SASS_PATH           = 'sass/**/*.scss';
 var CSS_PATH            = 'dist/assets/css/';
 var ASSETS_PATH         = "assets/";
 var PRE_MAIN_TEMPLATES  = (ext) =>`templates/**/!(_)*${ext}`;
-var PRE_ALL_TEMPLATES   = (ext) => [`templates/**/*${ext}`];
+var PRE_ALL_TEMPLATES   = (ext) => `templates/**/*${ext}`;
 var JS_PATH             = 'dist/assets/js/';
 
 var removeHtmlExtension = false; // Make it true to remove .html extension from pre compiled html templates
@@ -53,24 +54,17 @@ var svgs = [];
 function generateSvg(){
     config = requireUncached('./config.json');
     var svgGrouping = config['svg-grouping'];
-    return new Promise((resolve, reject) => {
-        if(svgGrouping){
-            var svgKeys     = Object.keys(svgGrouping);
-            try{
-                for(var i = 0; i < svgKeys.length; i++){
-                    var svgKey = svgKeys[i];
-                    var pageName = svgGrouping[svgKey];
-                // for(var pageName in svgGrouping){
-                    // storing all page names in svgs global variable
-                    svgs.push(pageName);
 
-                    var pageSpecificSVGs = svgGrouping[pageName]; // Array
-
-
+    if(svgGrouping){
+        var svgKeys     = Object.keys(svgGrouping);
+        return Promise.all(
+            svgKeys.map(key => {
+                var pageSpecificSVGs = svgGrouping[key]; // Array
                     // mapping the page specific variables with relative path
-                    var newPageSpecificSVGs = pageSpecificSVGs.map(function(p){ return SVGS_SOURCE_PATH + p + '.svg' });
-                    gulp
+                    var newPageSpecificSVGs = pageSpecificSVGs.map(p => SVGS_SOURCE_PATH + p + '.svg' );
+                    return gulp
                         .src(newPageSpecificSVGs)
+                        .pipe(plumber())
                         .pipe(svgmin(function(file){
                             var prefix = path.basename(file.relative, path.extname(file.relative));
                             return {
@@ -82,37 +76,18 @@ function generateSvg(){
                                 }]
                             }
                         }))
-                        .on('error', function(error){
-                            gutil.log(error.message);
-                        })
                         .pipe(svgstore())
                         // Uncomment the below lines to add additional attributes to the generated SVG Sprite
                         // .pipe(cheerio(function($, file){
                         //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
                         // }))
-                        .on('error', function(error){
-                            gutil.log(error.message);
-                        })
                         .pipe(rename(pageName + '.svg'))
                         // Store the generated svg sprite in "dist/assets/images/" folder
-                        .pipe(gulp.dest(IMAGES_PATH))
-                        .pipe(() => {
-                            if(i >= svgKeys.length){
-                                resolve();
-                            }
-                        })
-                }
-            }
-            catch(ex){
-                // This function will break mostly when there are no svgs or svg folders in 'bundle-svgs'
-                gutil.log(ex);
-                reject();
-            }
-        }
-        else{
-            resolve();
-        }
-    })
+                        .pipe(gulp.dest(IMAGES_PATH));
+            })
+        )
+    }
+    return new Promise((resolve, reject) => resolve({}));
 };
 
 
@@ -124,18 +99,19 @@ function generateSvg(){
 // TO DO: Keep the compiled css code in expanded mode
 function sassChange(){
     var processors = [
-        uncss({
-            html: ['dist/**/*.html']
-        }),
+        // uncss({
+        //     html: ['dist/**/*.html']
+        // }),
         // clean(),
         autoprefixer({
             browsers: ['ie > 9', 'safari > 6']
         })
     ];
     return gulp.src(SASS_PATH)
+        .pipe(plumber())
         .pipe(sourcemaps.init())
         // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
-        .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
+        .pipe(sass({outputStyle: 'expanded', sourceComments: false}))
         .pipe(mmq({log: true}))
         .pipe(postcss(processors))
         // For mapping: Don't mention the path to make the mapping inline
@@ -144,20 +120,10 @@ function sassChange(){
 }
 
 function server() {
-    return new Promise((resolve, reject) => {
-        try{
-            resolve(
-                connect.server({
-                    port: '4100',
-                    root: 'dist'
-                })
-            )
-        }
-        catch(e){
-            console.log(e);
-            reject();
-        }
-    });
+    connect.server({
+        port: '4100',
+        root: 'dist'
+    })
 }
 
 /*****************************************/
@@ -170,6 +136,7 @@ function preTemplateChanges(){
         resolve(EXT_HTML.reduce((acc, ext) => {
             // use !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
             return gulp.src(PRE_MAIN_TEMPLATES(ext))
+                .pipe(plumber())
                 .pipe(htmlCompilers[ext]({
                     data: {
                         // Custom global variables for pre compiling HTML templates
@@ -185,13 +152,7 @@ function preTemplateChanges(){
                         // ext: '/index.html'
                     }
                 }))
-                .on('error', function(error){
-                    gutil.log(error.message);
-                })
                 .pipe(prettify({indent_size: 4}))
-                .on('error', function(error){
-                    gutil.log(error.message);
-                })
                 .pipe(rename(function(obj){
                     if(removeHtmlExtension){
                         if(obj.basename !== 'index'){
@@ -216,7 +177,15 @@ function preTemplateChanges(){
 // Watches changes of sass and templates
 // TO DO: Run template changes and sass changes individually
 function watchChanges(){
-    EXT_HTML.forEach((ext) => gulp.watch([PRE_ALL_TEMPLATES(ext), 'config.json'],gulp.series('templates')))
+    EXT_HTML.map((ext) => {
+        gulp.watch(
+            [
+                PRE_ALL_TEMPLATES(ext), 
+                'config.json'
+            ],
+            gulp.series('templates')
+        )
+    });
     // gulp.watch([PRE_ALL_TEMPLATES(EXT_HTML), 'config.json'],['templates']);
     gulp.watch(SASS_PATH, gulp.series('sass'));
     gulp.watch([SVGS_ALL_PATH, 'config.json'], gulp.series('generate-svg'));
@@ -232,7 +201,7 @@ gulp.task('watch',
         'generate-svg',  // this should be on top because it fills data in a global variable, svgs
         'templates', 
         'sass',
-        'live',  
+        // 'live',  
         watchChanges
     )
 );

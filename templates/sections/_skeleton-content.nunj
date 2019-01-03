@@ -15,21 +15,21 @@
 
 		<!-- SVG Sprite preloading -->
 		<!-- TO DO: Inject svg content inside html, instead of sending a request -->
-		{% include "templates/variables/_svg-sprite-method-one.html" %}
+		{% include "templates/variables/_svg-sprite-method-one.nunj" %}
 	</head>
 	<body>
 		<div class="page">
 			<div class="page-wrapper">
 				<!-- Header section -->
-				{% include "templates/sections/_header.html" %}
+				{% include "templates/sections/_header.nunj" %}
 				<!-- if the header and footer are common, you can include there sections here -->
 				<!-- Add content here -->
 				{% block content %}{% endblock %}
 				<!-- Footer section -->
-				{% include "templates/sections/_footer.html" %}
+				{% include "templates/sections/_footer.nunj" %}
 			</div>
 			<div class="popup-wrapper">
-				{% include "templates/sections/_popup-sections.html" %}
+				{% include "templates/sections/_popup-sections.nunj" %}
 			</div>
 		</div>
 		<!-- HTML script path -->
