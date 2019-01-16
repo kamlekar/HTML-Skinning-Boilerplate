@@ -1,32 +1,33 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
-var mmq = require('gulp-merge-media-queries');
-var htmlCompilers = {
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const postcss = require('gulp-postcss');
+const mmq = require('gulp-merge-media-queries');
+const htmlCompilers = {
     '.pug': require('gulp-pug'),
-    '.nunj': require('gulp-nunjucks-render')
+    '.html': require('gulp-nunjucks-render')
 };
-var sourcemaps = require('gulp-sourcemaps');
-var prettify = require('gulp-prettify');
-var svgstore = require('gulp-svgstore');
-var gutil = require('gulp-util');
-var svgmin = require('gulp-svgmin');
-var connect = require('gulp-connect');
-var path = require('path');
-var fs = require('fs');
-var rename = require('gulp-rename');
-var config = require('./config.json');
-var postcss = require('gulp-postcss');
-var uncss = require('postcss-uncss');
-var clean = require('postcss-clean');
-var plumber = require('gulp-plumber');
+const sourcemaps = require('gulp-sourcemaps');
+const prettify = require('gulp-prettify');
+const svgstore = require('gulp-svgstore');
+const gutil = require('gulp-util');
+const svgmin = require('gulp-svgmin');
+const connect = require('gulp-connect');
+const path = require('path');
+const fs = require('fs');
+const rename = require('gulp-rename');
+const uncss = require('postcss-uncss');
+const clean = require('postcss-clean');
+const plumber = require('gulp-plumber');
+const autoprefixer = require("autoprefixer");
+const browsersync = require("browser-sync").create();
+const cleanCSS = require("gulp-clean-css");
 
+let config = require('./config.json');
 
 // Variables
 
 var IMAGES_PATH = 'dist/assets/images/';
-var EXT_HTML = ['.pug', '.nunj'];
+var EXT_HTML = ['.pug', '.html'];
 var SVGS_SOURCE_PATH = 'bundle-svgs/';
 var SVGS_ALL_PATH = 'bundle-svgs/**/*.svg';
 var SASS_PATH = 'sass/**/*.scss';
@@ -83,7 +84,8 @@ function generateSvg() {
                     // }))
                     .pipe(rename(pageName + '.svg'))
                     // Store the generated svg sprite in "dist/assets/images/" folder
-                    .pipe(gulp.dest(IMAGES_PATH));
+                    .pipe(gulp.dest(IMAGES_PATH))
+                    .pipe(browsersync.stream());
             })
         )
     }
@@ -116,14 +118,29 @@ function sassChange() {
         .pipe(postcss(processors))
         // For mapping: Don't mention the path to make the mapping inline
         .pipe(sourcemaps.write('maps'))
-        .pipe(gulp.dest(CSS_PATH));
+        .pipe(gulp.dest(CSS_PATH))
+        .pipe(rename({
+            suffix: ".min"
+        }))
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(CSS_PATH))
+        .pipe(browsersync.stream());
 }
 
-function server() {
-    connect.server({
-        port: '4100',
-        root: 'dist'
-    })
+// BrowserSync
+function browserSync(done) {
+    browsersync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
+    done();
+}
+
+// BrowserSync Reload
+function browserSyncReload(done) {
+    browsersync.reload();
+    done();
 }
 
 /*****************************************/
@@ -168,24 +185,25 @@ function preTemplateChanges() {
                     }
                 }))
                 // .on('error', swallowError)
-                .pipe(gulp.dest('dist'));
+                .pipe(gulp.dest('dist'))
+                .pipe(browsersync.stream());
 
-        })
-        )
+        }))
     })
 }
+
 // Watches changes of sass and templates
+function requireUncached(module) {
+    require.cache[require.resolve(module)] = undefined;
+    return require(module);
+}
+
 // TO DO: Run template changes and sass changes individually
 function watchChanges() {
-    EXT_HTML.map((ext) => {
-        gulp.watch(
-            [
-                PRE_ALL_TEMPLATES(ext),
-                'config.json'
-            ],
-            gulp.series('templates')
-        )
-    });
+    gulp.watch(
+        EXT_HTML.map((ext) => PRE_ALL_TEMPLATES(ext)).concat('config.json'),
+        gulp.series('templates', browserSyncReload)
+    )
     // gulp.watch([PRE_ALL_TEMPLATES(EXT_HTML), 'config.json'],['templates']);
     gulp.watch(SASS_PATH, gulp.series('sass'));
     gulp.watch([SVGS_ALL_PATH, 'config.json'], gulp.series('generate-svg'));
@@ -195,24 +213,9 @@ function watchChanges() {
 gulp.task('sass', sassChange);
 gulp.task('templates', preTemplateChanges);
 gulp.task('generate-svg', generateSvg);
-gulp.task('live', server);
-gulp.task('watch',
-    gulp.series(
-        'generate-svg',  // this should be on top because it fills data in a global variable, svgs
-        'templates',
-        'sass',
-        // 'live',  
-        watchChanges
-    )
-);
+// gulp.task('live', server);
 
-gulp.task('default', gulp.series('watch'));
-
-gulp.task('run', gulp.series('generate-svg', 'sass', 'templates'))
-
-
-
-function requireUncached(module) {
-    require.cache[require.resolve(module)] = undefined;
-    return require(module);
-}
+// Dev Tasks
+gulp.task('run', gulp.series('generate-svg', 'sass', 'templates'));
+gulp.task('watch', gulp.series('run', watchChanges));
+gulp.task("default", gulp.series('run', gulp.parallel('watch', browserSync)));

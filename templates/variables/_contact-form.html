@@ -1,0 +1,41 @@
+{% live_form_key = "" %} {% google_captcha_client_key = "" %} {% block before_head_end %}
+<script src="https://www.google.com/recaptcha/api.js?render={{google_captcha_client_key}}"></script>
+{% endblock %}
+
+<div class="contact-form-block">
+    <form
+        class="contact-form"
+        action="https://liveformhq.com/form/{{ live_form_key }}"
+        method="POST"
+        accept-charset="utf-8"
+    >
+        <h3 class="contact-form-hdr">WRITE TO US</h3>
+        <div class="form-group-block">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Name" />
+                <div class="error-messages">
+                    <div class="error-message" x-type="empty">Name field is mandatory</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" />
+                <div class="error-messages">
+                    <div class="error-message" x-type="empty">Email field is mandatory</div>
+                    <div class="error-message" x-type="invalid">Email field is Invalid</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" name="subject" placeholder="Subject (Optional)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <textarea name="message" placeholder="Message"></textarea>
+            <div class="error-messages">
+                <div class="error-message" x-type="empty">Message field is mandatory</div>
+            </div>
+        </div>
+        <div class="button-block">
+            <button class="submit-contact-form" type="submit">SEND</button>
+        </div>
+    </form>
+</div>

@@ -1,4 +1,0 @@
-<div style="display: none">
-{% set filepath = 'site/assets/images/' + pageName + '.svg' %}
-{{ fs.readFileSync(filepath) }}
-</div>

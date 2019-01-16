@@ -3,13 +3,15 @@
     "version": "0.8.4",
     "description": "This setup is starter kit for HTML developers and provide features to develop HTML faster.",
     "main": "gulpfile.js",
-    "dependencies": {
-        "prettier": "^1.15.3"
-    },
+    "dependencies": {},
     "devDependencies": {
+        "@prettier/plugin-php": "^0.9.0",
         "autoprefixer": "^9.3.1",
+        "browser-sync": "^2.26.3",
         "gulp": "^4.0.0",
+        "gulp-autoprefixer": "^6.0.0",
         "gulp-cheerio": "^0.6.2",
+        "gulp-clean-css": "^4.0.0",
         "gulp-concat": "^2.6.0",
         "gulp-connect": "^5.6.1",
         "gulp-data": "^1.2.0",
@@ -30,11 +32,12 @@
         "gulp-util": "^3.0.7",
         "postcss-clean": "^1.1.0",
         "postcss-uncss": "^0.16.1",
+        "prettier": "^1.15.3",
         "uncss": "^0.16.2"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "prettier": "prettier --write \"sass/**/*.scss\" \"templates/**/*.html\" \"dist/js/*.js\""
+        "prettier": "prettier --write \"sass/**/*.scss\" \"dist/assets/{js,libs}/*.{js, (!min.js)}\" \"dist/mail/*.php\""
     },
     "repository": {
         "type": "git",
