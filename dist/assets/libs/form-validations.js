@@ -1,4 +1,6 @@
-function validateForm($form) {
+function validateForm($form, configs) {
+    var validations = configs.validations;
+    var validationKey = 'x-';
     var check = {
         empty: function(value) {
             return !value;
@@ -10,29 +12,23 @@ function validateForm($form) {
         }
     };
 
-    var validations = {
-        name: ['empty'],
-        email: ['empty', 'invalidEmail'],
-        message: ['empty']
-    };
-
-    var form = $form[0];
-
-    for (var key in validations) {
-        var value = form[key].value;
-        validations[key].some(function(x) {
+    return Object.keys(validations).some(key => {
+        var $fieldElement = $form.find(`${validationKey}${key}`);
+        // Fetching of value can change based on the type of field
+        // Currently, assuming / limiting the field to input and textarea only.
+        var value = $fieldElement.val();
+        return validations[key].some(function(x) {
             var bln = check[x](value);
-            var $errorMessages = $(form[key])
+            var $errorMessages = $fieldElement
+                // Assuming the parent holds the field and its related error messages
                 .parent()
                 .find('.error-messages');
 
-            $errorMessages.find('[x-type]').removeClass('show');
+            $errorMessages.find(`[${validationKey}type]`).removeClass('show');
             if (bln) {
-                isReadyToSubmit = false;
-
-                $errorMessages.find('[x-type="' + x + '"]').addClass('show');
+                $errorMessages.find(`[${validationKey}type="${x}"]`).addClass('show');
             }
             return bln;
         });
-    }
+    })
 }

@@ -1,5 +1,10 @@
-{% live_form_key = "" %} {% google_captcha_client_key = "" %} {% block before_head_end %}
+{% live_form_key = "" %} 
+{% google_captcha_client_key = "" %} 
+{% block before_head_end %}
 <script src="https://www.google.com/recaptcha/api.js?render={{google_captcha_client_key}}"></script>
+<script>
+var reCAPTCHA_site_key = "{{ google_captcha_client_key }}";
+</script>
 {% endblock %}
 
 <div class="contact-form-block">
