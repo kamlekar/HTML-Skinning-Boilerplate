@@ -6,38 +6,38 @@
 $normalFontSize: 12px;
 
 /* Clearfix */
-%clrfx{
-	&::after{
-		content: "";
-		clear: both;
-		display: block;
-	}
+%clrfx {
+    &::after {
+        content: '';
+        clear: both;
+        display: block;
+    }
 }
 .ellipsis {
-	&:before {
-		display: block;
-		content: attr(title);
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-	}
+    &:before {
+        display: block;
+        content: attr(title);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 }
 
 /* SVG Sprites common stylings */
 /* For this to work properly, you need to apply prefixes such as "one-" and "ione-" to the svg icons */
 /* prefix "one-" is for the icons which have stroke as border and fill as inside color */
 /* prefix "ione-" is for the icons which have stroke as inside color and fill as stroke */
-svg{
-	symbol[id^="one-"]{
-		path{
-			fill: inherit;
-			stroke: currentColor;
-		}
-	}
-	symbol[id^="ione-"]{
-		path{
-			fill: currentColor;
-			stroke: inherit;
-		}
-	}
+svg {
+    symbol[id^='one-'] {
+        path {
+            fill: inherit;
+            stroke: currentColor;
+        }
+    }
+    symbol[id^='ione-'] {
+        path {
+            fill: currentColor;
+            stroke: inherit;
+        }
+    }
 }

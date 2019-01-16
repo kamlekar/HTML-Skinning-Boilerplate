@@ -1,19 +1,19 @@
 // Breakpoints
 // Note: Consider using content based media queries
 // Device based media queries
-$size-xs: 	320px;
-$size-s:	480px;
-$size-m1:	640px;
-$size-m2:	768px;
-$size-m3:	991px;  
-$size-l:	1024px;
-$size-xl:	1280px;
-$size-xxl:	1440px;
+$size-xs: 320px;
+$size-s: 480px;
+$size-m1: 640px;
+$size-m2: 768px;
+$size-m3: 991px;
+$size-l: 1024px;
+$size-xl: 1280px;
+$size-xxl: 1440px;
 
-@mixin layout($number){
-	@media (max-width: #{$number}px){
-		@content;
-	}
+@mixin layout($number) {
+    @media (max-width: #{$number}px) {
+        @content;
+    }
 }
 
 // add here further breakpoint variables or modify the above variables

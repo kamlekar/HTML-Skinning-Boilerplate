@@ -1,5 +1,5 @@
 
-*.html
-*.css
+dist/*.html
+dist/assets/css/*.css
 *.map
 node_modules/
