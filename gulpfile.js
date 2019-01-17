@@ -131,7 +131,7 @@ function sassChange() {
 function browserSync(done) {
     browsersync.init({
         server: {
-            baseDir: "./"
+            baseDir: "./dist/"
         }
     });
     done();
@@ -163,6 +163,8 @@ function preTemplateChanges() {
                         img_path: IMAGES_PATH,
                         svgs: svgs,
                         fs: fs,
+                        validation_key: "x-",
+                        assets: "assets/"
                         /* The below setting is used to hide ".html" extension in url paths */
                         /* It will generate a folder with file's name and insert the content in index.html file */
                         /* Example: if you pass "home.html", it will compile to "home/index.html" */

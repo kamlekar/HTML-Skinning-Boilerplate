@@ -1,0 +1,21 @@
+{% set svgName = "" %}
+{% set pageTitle = "Contact" %}
+{% set pageName = "contact" %}
+{% extends "templates/sections/_skeleton-layout.html" %}
+{% set live_form_key = "" %} 
+{% set google_captcha_client_key = "" %} 
+{% block before_head_end %}
+<script src="https://www.google.com/recaptcha/api.js?render={{google_captcha_client_key}}"></script>
+<script>
+var reCAPTCHA_site_key = "{{ google_captcha_client_key }}";
+var validationKey = "{{ validation_key }}";
+</script>
+{% endblock %}
+{% block content %}
+    {% include "templates/variables/_contact-form.html" %}
+{% endblock %}
+{% block before_body_end %}
+<script src="{{assets}}vendors/jquery.js"></script>
+<script src="{{assets}}libs/form-validations.js"></script>
+<script src="{{assets}}libs/contact-submission.js"></script>
+{% endblock %}

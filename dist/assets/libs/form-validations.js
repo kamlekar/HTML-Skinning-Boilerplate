@@ -1,6 +1,5 @@
 function validateForm($form, configs) {
     var validations = configs.validations;
-    var validationKey = 'x-';
     var check = {
         empty: function(value) {
             return !value;
@@ -13,7 +12,7 @@ function validateForm($form, configs) {
     };
 
     return Object.keys(validations).some(key => {
-        var $fieldElement = $form.find(`${validationKey}${key}`);
+        var $fieldElement = $form.find(`[${validationKey}name="${key}"]`);
         // Fetching of value can change based on the type of field
         // Currently, assuming / limiting the field to input and textarea only.
         var value = $fieldElement.val();
