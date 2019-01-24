@@ -82,7 +82,7 @@ function generateSvg() {
                     // .pipe(cheerio(function($, file){
                     //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
                     // }))
-                    .pipe(rename(pageName + '.svg'))
+                    .pipe(rename(key + '.svg'))
                     // Store the generated svg sprite in "dist/assets/images/" folder
                     .pipe(gulp.dest(IMAGES_PATH))
                     .pipe(browsersync.stream());
