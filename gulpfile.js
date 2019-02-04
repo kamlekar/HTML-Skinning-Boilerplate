@@ -21,6 +21,7 @@ const plumber = require('gulp-plumber');
 const autoprefixer = require("autoprefixer");
 const browsersync = require("browser-sync").create();
 const cleanCSS = require("gulp-clean-css");
+const data = require('gulp-data');
 
 let config = require('./config.json');
 
@@ -154,23 +155,29 @@ function preTemplateChanges() {
             // use !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
             return gulp.src(PRE_MAIN_TEMPLATES(ext))
                 .pipe(plumber())
-                .pipe(htmlCompilers[ext]({
-                    data: {
-                        // Custom global variables for pre compiling HTML templates
-                        css_path: CSS_PATH,
-                        js_path: JS_PATH,
-                        lib_path: ASSETS_PATH + "libs/",
-                        img_path: IMAGES_PATH,
-                        svgs: svgs,
-                        fs: fs,
-                        validation_key: "x-",
-                        assets: "assets/"
-                        /* The below setting is used to hide ".html" extension in url paths */
-                        /* It will generate a folder with file's name and insert the content in index.html file */
-                        /* Example: if you pass "home.html", it will compile to "home/index.html" */
-                        // ext: '/index.html'
-                    }
+                .pipe(data(function(file){
+                    var relative_path = file.path.replace(__dirname + "\\templates", "");
+                    var count = relative_path.split("\\").length - 2;
+                    var relative_assets_path = Array(count).fill("../").join("") + ASSETS_PATH;
+                    // console.log(relative_assets_path);
+
+                    var obj = {
+                            // Custom global variables for pre compiling HTML templates
+                            css_path:   relative_assets_path + "css/",
+                            js_path:    relative_assets_path + "js/",
+                            lib_path:   relative_assets_path + "libs/",
+                            assets:     relative_assets_path,
+                            img_path:   relative_assets_path + "images/",
+                            svgs:       svgs,
+                            fs:         fs,
+                            /* The below setting is used to hide ".html" extension in url paths */
+                            /* It will generate a folder with file's name and insert the content in index.html file */
+                            /* Example: if you pass "home.html", it will compile to "home/index.html" */
+                            // ext: '/index.html'
+                    };
+                    return obj;
                 }))
+                .pipe(htmlCompilers[ext]())
                 .pipe(prettify({ indent_size: 4 }))
                 .pipe(rename(function (obj) {
                     if (removeHtmlExtension) {
