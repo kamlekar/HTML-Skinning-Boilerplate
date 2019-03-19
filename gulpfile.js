@@ -22,6 +22,11 @@ const autoprefixer = require("autoprefixer");
 const browsersync = require("browser-sync").create();
 const cleanCSS = require("gulp-clean-css");
 const data = require('gulp-data');
+const imagemin = require('gulp-imagemin');
+const cache = require('gulp-cache');
+const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+const babel = require('gulp-babel');
 
 let config = require('./config.json');
 
@@ -36,7 +41,10 @@ var CSS_PATH = 'dist/assets/css/';
 var ASSETS_PATH = "assets/";
 var PRE_MAIN_TEMPLATES = (ext) => `templates/**/!(_)*${ext}`;
 var PRE_ALL_TEMPLATES = (ext) => `templates/**/*${ext}`;
+var ALL_JS_PATH = 'dist/assets/**/*.js';
 var JS_PATH = 'dist/assets/js/';
+var JS_LIBS_PATH = ['dist/assets/libs/*.js', '!dist/assets/libs/libs.js'];
+var JS_VENDORS_PATH = 'dist/assets/vendors/*.js';
 
 var removeHtmlExtension = false; // Make it true to remove .html extension from pre compiled html templates
 
@@ -102,9 +110,9 @@ function generateSvg() {
 // TO DO: Keep the compiled css code in expanded mode
 function sassChange() {
     var processors = [
-        // uncss({
-        //     html: ['dist/**/*.html']
-        // }),
+        uncss({
+            html: ['dist/**/*.html']
+        }),
         // clean(),
         autoprefixer({
             browsers: ['ie > 9', 'safari > 6']
@@ -123,8 +131,8 @@ function sassChange() {
         .pipe(rename({
             suffix: ".min"
         }))
-        .pipe(cleanCSS())
-        .pipe(gulp.dest(CSS_PATH))
+		.pipe(cleanCSS())
+		.pipe(gulp.dest(CSS_PATH))
         .pipe(browsersync.stream());
 }
 
@@ -194,12 +202,65 @@ function preTemplateChanges() {
                     }
                 }))
                 // .on('error', swallowError)
-                .pipe(gulp.dest('dist'))
+				.pipe(gulp.dest('dist'))
                 .pipe(browsersync.stream());
-
         }))
     })
 }
+
+// JS optimization
+function jsOptimization() {
+    return gulp.src(JS_LIBS_PATH)
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(concat('libs.js'))
+        .pipe(gulp.dest(JS_PATH))
+		.pipe(rename({
+			suffix: ".min"
+        }))
+		// .pipe(rename('libs.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(JS_PATH))
+        .pipe(browsersync.stream());
+}
+
+// images optimization
+function imgOptimization() {
+    return gulp.src('dist/assets/images/**/*.+(png|jpg|jpeg)')
+        // Caching images that ran through imagemin
+        // .pipe(cache(imagemin({
+        //     interlaced: true
+        // })))
+        .pipe(imagemin({
+            interlaced: true
+			// progressive: true
+			// optimizationLevel: 5
+        }))
+        // .pipe(cache(imagemin([
+        //     imagemin.gifsicle({
+        //         interlaced: true
+        //     }),
+        //     imagemin.jpegtran({
+        //         progressive: true
+        //     }),
+        //     imagemin.optipng({
+        //         optimizationLevel: 5
+        //     })
+            // imagemin.svgo({
+            //     plugins: [{
+            //             removeViewBox: true
+            //         },
+            //         {
+            //             cleanupIDs: false
+            //         }
+            //     ]
+            // })
+        // ])))
+        // .pipe(gulp.dest('dist/assets/images'))
+        .pipe(gulp.dest(IMAGES_PATH))
+        .pipe(browsersync.stream());
+};
 
 // Watches changes of sass and templates
 function requireUncached(module) {
@@ -209,22 +270,26 @@ function requireUncached(module) {
 
 // TO DO: Run template changes and sass changes individually
 function watchChanges() {
-    gulp.watch(
-        EXT_HTML.map((ext) => PRE_ALL_TEMPLATES(ext)).concat('config.json'),
-        gulp.series('templates', browserSyncReload)
-    )
-    // gulp.watch([PRE_ALL_TEMPLATES(EXT_HTML), 'config.json'],['templates']);
+	// gulp.watch([PRE_ALL_TEMPLATES(EXT_HTML), 'config.json'],['templates']);
     gulp.watch(SASS_PATH, gulp.series('sass'));
     gulp.watch([SVGS_ALL_PATH, 'config.json'], gulp.series('generate-svg'));
+    gulp.watch(IMAGES_PATH, gulp.series('imagemin'));
+    gulp.watch(ALL_JS_PATH, gulp.series('uglify'));
+	gulp.watch(
+		EXT_HTML.map((ext) => PRE_ALL_TEMPLATES(ext)).concat('config.json'),
+		gulp.series('templates', browserSyncReload)
+	)
 }
 
 // Tasks
 gulp.task('sass', sassChange);
-gulp.task('templates', preTemplateChanges);
 gulp.task('generate-svg', generateSvg);
+gulp.task('imagemin', imgOptimization);
+gulp.task('uglify', jsOptimization);
+gulp.task('templates', preTemplateChanges);
 // gulp.task('live', server);
 
 // Dev Tasks
-gulp.task('run', gulp.series('generate-svg', 'sass', 'templates'));
+gulp.task('run', gulp.series('generate-svg', 'sass', 'imagemin', 'uglify', 'templates'));
 gulp.task('watch', gulp.series('run', watchChanges));
 gulp.task("default", gulp.series('run', gulp.parallel('watch', browserSync)));

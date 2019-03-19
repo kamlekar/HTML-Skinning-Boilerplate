@@ -2,6 +2,7 @@
 {% set pageTitle = "Homepage" %}
 {% set pageName = "index" %}
 {% extends "templates/sections/_skeleton-layout.html" %}
+{% include "templates/variables/_macros.html" %}
 {% block content %}
 	<!-- page content here -->
 	<div class="main">
@@ -10,5 +11,8 @@
 		<div class="child html-click" data-html-class="active" data-html-target=".new">Child 2</div>
 		<div class="new">xyz</div>
 		<div class="html-click" data-html-class="hey" data-html-target=".new">hey</div>
+		{# <div>
+			{{ imgTag('sudhakar', 'sudhakar-image') }}
+		</div> #}
 	</div>
 {% endblock %}
