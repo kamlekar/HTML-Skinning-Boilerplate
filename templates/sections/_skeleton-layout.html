@@ -12,7 +12,7 @@
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
         <!-- CSS files -->
-        <link rel="stylesheet" href="{{ css_path }}main.min.css" type="text/css" />
+        <link rel="stylesheet" href="{{ css_path }}main.css" type="text/css" />
         <!-- script files -->
         {% block before_head_end %}{% endblock %}
 
@@ -35,10 +35,10 @@
         </div>
         <!-- HTML script path -->
         <script
-            src="http://mozilla.github.io/nunjucks/files/nunjucks.js"
+            src="//mozilla.github.io/nunjucks/files/nunjucks.js"
             type="text/javascript"
         ></script>
-        {# <script src="{{ lib_path }}html.js" type="text/javascript"></script> #}
+        <script src="{{ lib_path }}html.js" type="text/javascript"></script>
         {% block before_body_end %}{% endblock %}
     </body>
 </html>

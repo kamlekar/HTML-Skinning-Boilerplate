@@ -12,7 +12,6 @@ function getDate(time) {
     ) {
         return dateTime;
     }
-    
     // Invalid date (The above condition will be invalid for some time formats in firefox)
     else {
         // Refer: http://stackoverflow.com/a/3075893/1577396

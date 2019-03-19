@@ -1,67 +1,61 @@
 {
-  "name": "html-skinning-boilerplate",
-  "version": "0.8.4",
-  "description": "This setup is starter kit for HTML developers and provide features to develop HTML faster.",
-  "main": "gulpfile.js",
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "@prettier/plugin-php": "^0.9.0",
-    "autoprefixer": "^9.3.1",
-    "browser-sync": "^2.26.3",
-    "gulp": "^4.0.0",
-    "gulp-autoprefixer": "^6.0.0",
-    "gulp-babel": "^8.0.0",
-    "gulp-cache": "^1.1.1",
-    "gulp-cheerio": "^0.6.2",
-    "gulp-clean-css": "^4.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-connect": "^5.6.1",
-    "gulp-data": "^1.3.1",
-    "gulp-folders": "^1.1.0",
-    "gulp-imagemin": "^5.0.3",
-    "gulp-merge-media-queries": "^0.2.1",
-    "gulp-nunjucks": "^4.0.0",
-    "gulp-nunjucks-render": "^2.2.2",
-    "gulp-path": "^2.0.1",
-    "gulp-plumber": "^1.2.1",
-    "gulp-postcss": "^6.4.0",
-    "gulp-prettify": "^0.5.0",
-    "gulp-pug": "^4.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.0.4",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-svgmin": "^2.1.0",
-    "gulp-svgstore": "^6.1.1",
-    "gulp-uglify": "^3.0.2",
-    "gulp-util": "^3.0.7",
-    "postcss-clean": "^1.1.0",
-    "postcss-uncss": "^0.16.1",
-    "prettier": "^1.15.3",
-    "uncss": "^0.16.2"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier": "prettier --write \"sass/**/*.scss\" \"dist/assets/{js,libs}/*.{js, (!min.js)}\" \"dist/mail/*.php\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kamlekar/HTML-Skinning-Boilerplate.git"
-  },
-  "keywords": [
-    "boilerplate",
-    "sass",
-    "svg",
-    "sprite",
-    "svg",
-    "sprite",
-    "nunjucks"
-  ],
-  "author": "Venkateshwar",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kamlekar/HTML-Skinning-Boilerplate/issues"
-  },
-  "homepage": "https://github.com/kamlekar/HTML-Skinning-Boilerplate#readme"
+    "name": "html-skinning-boilerplate",
+    "version": "0.8.4",
+    "description": "This setup is starter kit for HTML developers and provide features to develop HTML faster.",
+    "main": "gulpfile.js",
+    "dependencies": {},
+    "devDependencies": {
+        "@prettier/plugin-php": "^0.9.0",
+        "autoprefixer": "^9.3.1",
+        "browser-sync": "^2.26.3",
+        "gulp": "^4.0.0",
+        "gulp-autoprefixer": "^6.0.0",
+        "gulp-cheerio": "^0.6.2",
+        "gulp-clean-css": "^4.0.0",
+        "gulp-concat": "^2.6.0",
+        "gulp-connect": "^5.6.1",
+        "gulp-data": "^1.3.1",
+        "gulp-folders": "^1.1.0",
+        "gulp-merge-media-queries": "^0.2.1",
+        "gulp-nunjucks": "^4.0.0",
+        "gulp-nunjucks-render": "^2.2.2",
+        "gulp-path": "^2.0.1",
+        "gulp-plumber": "^1.2.1",
+        "gulp-postcss": "^6.4.0",
+        "gulp-prettify": "^0.5.0",
+        "gulp-pug": "^4.0.1",
+        "gulp-rename": "^1.2.2",
+        "gulp-sass": "^2.0.4",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-svgmin": "^2.1.0",
+        "gulp-svgstore": "^6.1.1",
+        "gulp-util": "^3.0.7",
+        "postcss-clean": "^1.1.0",
+        "postcss-uncss": "^0.16.1",
+        "prettier": "^1.15.3",
+        "uncss": "^0.16.2"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prettier": "prettier --write \"sass/**/*.scss\" \"dist/assets/{js,libs}/*.{js, (!min.js)}\" \"dist/mail/*.php\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kamlekar/HTML-Skinning-Boilerplate.git"
+    },
+    "keywords": [
+        "boilerplate",
+        "sass",
+        "svg",
+        "sprite",
+        "svg",
+        "sprite",
+        "nunjucks"
+    ],
+    "author": "Venkateshwar",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/kamlekar/HTML-Skinning-Boilerplate/issues"
+    },
+    "homepage": "https://github.com/kamlekar/HTML-Skinning-Boilerplate#readme"
 }
