@@ -43,7 +43,8 @@ var PRE_MAIN_TEMPLATES = (ext) => `templates/**/!(_)*${ext}`;
 var PRE_ALL_TEMPLATES = (ext) => `templates/**/*${ext}`;
 var ALL_JS_PATH = 'dist/assets/**/*.js';
 var JS_PATH = 'dist/assets/js/';
-var JS_LIBS_PATH = ['dist/assets/libs/*.js', '!dist/assets/libs/libs.js'];
+// var JS_LIBS_PATH = ['dist/assets/libs/*.js', '!dist/assets/libs/libs.js'];
+var JS_LIBS_PATH = 'dist/assets/libs/*.js';
 var JS_VENDORS_PATH = 'dist/assets/vendors/*.js';
 
 var removeHtmlExtension = false; // Make it true to remove .html extension from pre compiled html templates
@@ -100,9 +101,6 @@ function generateSvg() {
     }
     return new Promise((resolve, reject) => resolve({}));
 };
-
-
-
 
 /*****************************************/
 /*******SASS precompiling function********/
@@ -174,6 +172,7 @@ function preTemplateChanges() {
                             css_path:   relative_assets_path + "css/",
                             js_path:    relative_assets_path + "js/",
                             lib_path:   relative_assets_path + "libs/",
+                            vendors_path:   relative_assets_path + "vendors/",
                             assets:     relative_assets_path,
                             img_path:   relative_assets_path + "images/",
                             svgs:       svgs,
@@ -209,25 +208,58 @@ function preTemplateChanges() {
 }
 
 // JS optimization
-function jsOptimization() {
-    return gulp.src(JS_LIBS_PATH)
-        .pipe(babel({
-            presets: ['@babel/env']
-        }))
-        .pipe(concat('libs.js'))
-        .pipe(gulp.dest(JS_PATH))
-		.pipe(rename({
-			suffix: ".min"
-        }))
-		// .pipe(rename('libs.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest(JS_PATH))
-        .pipe(browsersync.stream());
-}
+const p = {
+    jsPath: {
+        js: {
+            orig: [JS_LIBS_PATH],
+            dest: [JS_PATH]
+        },
+        js: {
+            orig: [JS_VENDORS_PATH],
+            dest: [JS_PATH]
+        }
+    }
+};
+function jsOptimization(done) {
+    Object.keys(p).forEach(val => {
+        return gulp
+            .src(p[val].js.orig)
+            .pipe(plumber())
+            .pipe(babel({
+                presets: ['@babel/env']
+            }))
+            .pipe(concat('libs.js'))
+            .pipe(gulp.dest(p[val].js.dest))
+            .pipe(rename({
+                suffix: ".min"
+            }))
+            .pipe(uglify())
+            .pipe(gulp.dest(p[val].js.dest))
+            .pipe(browsersync.stream());
+    });
+    done();
+};
+
+// function jsOptimization() {
+//     return gulp.src(JS_LIBS_PATH)
+//         .pipe(babel({
+//             presets: ['@babel/env']
+//         }))
+//         .pipe(concat('libs.js'))
+//         .pipe(gulp.dest(JS_PATH))
+// 		.pipe(rename({
+// 			suffix: ".min"
+//         }))
+// 		// .pipe(rename('libs.min.js'))
+//         .pipe(uglify())
+//         .pipe(gulp.dest(JS_PATH))
+//         .pipe(browsersync.stream());
+// }
 
 // images optimization
 function imgOptimization() {
     return gulp.src('dist/assets/images/**/*.+(png|jpg|jpeg)')
+        .pipe(plumber())
         // Caching images that ran through imagemin
         // .pipe(cache(imagemin({
         //     interlaced: true

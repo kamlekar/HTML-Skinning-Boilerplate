@@ -11,8 +11,28 @@
 		<div class="child html-click" data-html-class="active" data-html-target=".new">Child 2</div>
 		<div class="new">xyz</div>
 		<div class="html-click" data-html-class="hey" data-html-target=".new">hey</div>
-		{# <div>
-			{{ imgTag('sudhakar', 'sudhakar-image') }}
-		</div> #}
+		<div class="image-block">
+		    <img src="assets/images/picture.jpg" alt="picture image" data-echo="assets/images/picture.jpg">
+		</div>
+		<div class="image-block">
+		    <img src="assets/images/workplace.jpg" alt="workplace image" data-echo="assets/images/workplace.jpg">
+		</div>
+		<div class="image-block">
+		    <img src="assets/images/street.jpg" alt="street image" data-echo="assets/images/street.jpg">
+		</div>
+		<div class="image-block">
+		    <img src="assets/images/image1.jpg" alt="image1 image" data-echo="assets/images/image1.jpg">
+		</div>
+		<div class="image-block">
+		    <img src="assets/images/image2.jpg" alt="image2 image" data-echo="assets/images/image2.jpg">
+		</div>
+		<div class="image-block">
+		    <img src="assets/images/image-png.png" alt="image-png image" data-echo="assets/images/image-png.png">
+		</div>
 	</div>
+{% endblock %}
+{% block before_body_end %}
+    <script src="{{assets}}vendors/jquery.js"></script>
+    <script src="{{assets}}vendors/echo.js"></script>
+    <script src="{{assets}}js/main.js"></script>y
 {% endblock %}

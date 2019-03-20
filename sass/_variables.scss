@@ -10,6 +10,12 @@ $size-l: 1024px;
 $size-xl: 1280px;
 $size-xxl: 1440px;
 
+// font variables
+// font-size
+$fs:14px;
+// font-family
+$ff: "OpenSans";
+
 @mixin layout($number) {
     @media (max-width: #{$number}px) {
         @content;

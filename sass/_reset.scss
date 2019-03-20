@@ -92,8 +92,10 @@ select,
 input,
 option,
 textarea {
-	// font-family: $got-md;
-	font-size: 14px;
+	font-family: $ff;
+	font-style: normal;
+	font-weight: 600;
+	font-size: $fs;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -115,10 +117,10 @@ section {
 body {
 	color: #666769;
 	background-color: #fff !important;
-	// font-family: $got-bk;
+	font-family: $ff;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 16px;
+	font-size: $fs + 2;
 	margin: 0;
 	padding: 0;
 }
@@ -154,10 +156,10 @@ table {
 	line-height: 45px;
 	padding: 0 10px;
 	background: #192431;
-	// font-family: $got-bk;
+	font-family: $ff;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 24px;
+	font-size: $fs + 10;
 	border: none;
 	color: #fff;
 	cursor: pointer;
@@ -182,10 +184,10 @@ button {
 input[type="text"],
 input[type="email"] {
 	// color: $cblack;
-	// font-family: $got-md;
+	font-family: $ff;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 14px;
+	font-size: $fs;
 	border: none;
 	width: 100%;
 	background: #fff;
@@ -199,7 +201,7 @@ input[type="email"] {
 
 	&::placeholder {
 		// color: $cblack;
-		font-family: rgba(26, 26, 29, 0.5);
+		// font-family: rgba(26, 26, 29, 0.5);
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		opacity: 0.5;
@@ -207,7 +209,7 @@ input[type="email"] {
 
 	&:-ms-input-placeholder {
 		// color: $cblack;
-		font-family: rgba(26, 26, 29, 0.5);
+		// font-family: rgba(26, 26, 29, 0.5);
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		opacity: 0.5;
@@ -215,7 +217,7 @@ input[type="email"] {
 
 	&::-ms-input-placeholder {
 		// color: $cblack;
-		font-family: rgba(26, 26, 29, 0.5);
+		// font-family: rgba(26, 26, 29, 0.5);
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		opacity: 0.5;
@@ -225,10 +227,10 @@ input[type="email"] {
 textarea {
 	resize: none;
 	// color: $cblack;
-	// font-family: $got-md;
+	font-family: $ff;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 14px;
+	font-size: $fs;
 	border: none;
 	width: 100%;
 	background: #fff;
@@ -243,7 +245,7 @@ textarea {
 
 	&::placeholder {
 		// color: $cblack;
-		font-family: rgba(26, 26, 29, 0.5);
+		// font-family: rgba(26, 26, 29, 0.5);
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		opacity: 0.5;
@@ -251,7 +253,7 @@ textarea {
 
 	&:-ms-input-placeholder {
 		// color: $cblack;
-		font-family: rgba(26, 26, 29, 0.5);
+		// font-family: rgba(26, 26, 29, 0.5);
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		opacity: 0.5;
@@ -259,7 +261,7 @@ textarea {
 
 	&::-ms-input-placeholder {
 		// color: $cblack;
-		font-family: rgba(26, 26, 29, 0.5);
+		// font-family: rgba(26, 26, 29, 0.5);
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		opacity: 0.5;
@@ -287,7 +289,7 @@ svg {
 a {
 	color: #fff;
 	text-decoration: none;
-	// font-family: $got-bk;
+	font-family: $ff;
 
 	&:focus,
 	&:hover {
@@ -301,7 +303,8 @@ a {
 	}
 
 	@at-root .montserrat-thin & {
-		// font-family: $got-bk;
+		font-family: $ff;
+		font-style: normal;
 		font-weight: inherit;
 	}
 }
