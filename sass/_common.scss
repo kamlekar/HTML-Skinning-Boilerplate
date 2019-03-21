@@ -1,3 +1,18 @@
 // common styles start
+.image-block {
+	width: 100%;
+}
+// lazyload images styles start
+img:not([src]) {
+	visibility: hidden;
+}
+
+/* Fixes Firefox anomaly during image load */
+@-moz-document url-prefix() {
+	img:-moz-loading {
+		visibility: hidden;
+	}
+}
+// lazyload images styles end
 
 // common styles end

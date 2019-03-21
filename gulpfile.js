@@ -166,7 +166,6 @@ function preTemplateChanges() {
                     var count = relative_path.split("\\").length - 2;
                     var relative_assets_path = Array(count).fill("../").join("") + ASSETS_PATH;
                     // console.log(relative_assets_path);
-
                     var obj = {
                             // Custom global variables for pre compiling HTML templates
                             css_path:   relative_assets_path + "css/",

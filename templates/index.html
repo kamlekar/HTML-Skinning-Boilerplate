@@ -12,27 +12,27 @@
 		<div class="new">xyz</div>
 		<div class="html-click" data-html-class="hey" data-html-target=".new">hey</div>
 		<div class="image-block">
-		    <img src="assets/images/picture.jpg" alt="picture image" data-echo="assets/images/picture.jpg">
+		    <img src="" alt="picture image" data-src="{{ img_path }}picture.jpg" class="lazy">
 		</div>
 		<div class="image-block">
-		    <img src="assets/images/workplace.jpg" alt="workplace image" data-echo="assets/images/workplace.jpg">
+		    <img src="" alt="workplace image" data-src="{{ img_path }}workplace.jpg" class="lazy">
 		</div>
 		<div class="image-block">
-		    <img src="assets/images/street.jpg" alt="street image" data-echo="assets/images/street.jpg">
+		    <img src="" alt="street image" data-src="{{ img_path }}street.jpg" class="lazy">
 		</div>
 		<div class="image-block">
-		    <img src="assets/images/image1.jpg" alt="image1 image" data-echo="assets/images/image1.jpg">
+		    <img src="" alt="image1 image" data-src="{{ img_path }}image1.jpg" class="lazy">
 		</div>
 		<div class="image-block">
-		    <img src="assets/images/image2.jpg" alt="image2 image" data-echo="assets/images/image2.jpg">
+		    <img src="" alt="image2 image" data-src="{{ img_path }}image2.jpg" class="lazy">
 		</div>
 		<div class="image-block">
-		    <img src="assets/images/image-png.png" alt="image-png image" data-echo="assets/images/image-png.png">
+		    <img src="" alt="image-png image" data-src="{{ img_path }}image-png.png" class="lazy">
 		</div>
 	</div>
 {% endblock %}
 {% block before_body_end %}
-    <script src="{{assets}}vendors/jquery.js"></script>
-    <script src="{{assets}}vendors/echo.js"></script>
-    <script src="{{assets}}js/main.js"></script>y
+    <script src="{{assets}}vendors/jquery.min.js"></script>
+    <script src="{{assets}}vendors/lazyload.min.js"></script>
+    <script src="{{assets}}js/main.min.js"></script>y
 {% endblock %}
