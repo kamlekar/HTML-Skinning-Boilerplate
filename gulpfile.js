@@ -43,7 +43,7 @@ var PRE_MAIN_TEMPLATES = (ext) => `templates/**/!(_)*${ext}`;
 var PRE_ALL_TEMPLATES = (ext) => `templates/**/*${ext}`;
 var ALL_JS_PATH = 'dist/assets/**/*.js';
 var JS_PATH = 'dist/assets/js/';
-// var JS_LIBS_PATH = ['dist/assets/libs/*.js', '!dist/assets/libs/libs.js'];
+var JS_LIBS_PATH = ['dist/assets/libs/*.js', '!dist/assets/libs/libs.js'];
 var JS_LIBS_PATH = 'dist/assets/libs/*.js';
 var JS_VENDORS_PATH = 'dist/assets/vendors/*.js';
 
@@ -208,53 +208,53 @@ function preTemplateChanges() {
 }
 
 // JS optimization
-const p = {
-    jsPath: {
-        js: {
-            orig: [JS_LIBS_PATH],
-            dest: [JS_PATH]
-        },
-        js: {
-            orig: [JS_VENDORS_PATH],
-            dest: [JS_PATH]
-        }
-    }
-};
-function jsOptimization(done) {
-    Object.keys(p).forEach(val => {
-        return gulp
-            .src(p[val].js.orig)
-            .pipe(plumber())
-            .pipe(babel({
-                presets: ['@babel/env']
-            }))
-            .pipe(concat('libs.js'))
-            .pipe(gulp.dest(p[val].js.dest))
-            .pipe(rename({
-                suffix: ".min"
-            }))
-            .pipe(uglify())
-            .pipe(gulp.dest(p[val].js.dest))
-            .pipe(browsersync.stream());
-    });
-    done();
-};
-
-// function jsOptimization() {
-//     return gulp.src(JS_LIBS_PATH)
-//         .pipe(babel({
-//             presets: ['@babel/env']
-//         }))
-//         .pipe(concat('libs.js'))
-//         .pipe(gulp.dest(JS_PATH))
-// 		.pipe(rename({
-// 			suffix: ".min"
-//         }))
-// 		// .pipe(rename('libs.min.js'))
-//         .pipe(uglify())
-//         .pipe(gulp.dest(JS_PATH))
-//         .pipe(browsersync.stream());
-// }
+function jsOptimization() {
+    return gulp.src('dist/assets/js/main.js')
+        .pipe(plumber())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        // .pipe(concat('main1.js'))
+        // .pipe(gulp.dest(JS_PATH))
+        // .pipe(rename({
+        //     suffix: ".min"
+        // }))
+        .pipe(rename('main.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(JS_PATH))
+        .pipe(browsersync.stream());
+}
+// const p = {
+//     jsPath: {
+//         js: {
+//             orig: [JS_LIBS_PATH],
+//             dest: [JS_PATH]
+//         },
+//         js: {
+//             orig: [JS_VENDORS_PATH],
+//             dest: [JS_PATH]
+//         }
+//     }
+// };
+// function jsOptimization(done) {
+//     Object.keys(p).forEach(val => {
+//         return gulp
+//             .src(p[val].js.orig)
+//             .pipe(plumber())
+//             .pipe(babel({
+//                 presets: ['@babel/env']
+//             }))
+//             .pipe(concat('libs.js'))
+//             .pipe(gulp.dest(p[val].js.dest))
+//             .pipe(rename({
+//                 suffix: ".min"
+//             }))
+//             .pipe(uglify())
+//             .pipe(gulp.dest(p[val].js.dest))
+//             .pipe(browsersync.stream());
+//     });
+//     done();
+// };
 
 // images optimization
 function imgOptimization() {
@@ -306,7 +306,7 @@ function watchChanges() {
     gulp.watch(SASS_PATH, gulp.series('sass'));
     gulp.watch([SVGS_ALL_PATH, 'config.json'], gulp.series('generate-svg'));
     gulp.watch(IMAGES_PATH, gulp.series('imagemin'));
-    gulp.watch(ALL_JS_PATH, gulp.series('uglify'));
+    gulp.watch(JS_PATH, gulp.series('uglify'));
 	gulp.watch(
 		EXT_HTML.map((ext) => PRE_ALL_TEMPLATES(ext)).concat('config.json'),
 		gulp.series('templates', browserSyncReload)
