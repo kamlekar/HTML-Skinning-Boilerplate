@@ -31,7 +31,7 @@
     "gulp-prettify": "^0.5.0",
     "gulp-pug": "^4.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.0.4",
+    "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-svgmin": "^2.1.0",
     "gulp-svgstore": "^6.1.1",
@@ -40,6 +40,7 @@
     "postcss-clean": "^1.1.0",
     "postcss-uncss": "^0.16.1",
     "prettier": "^1.15.3",
+    "tar": ">4.4.2",
     "uncss": "^0.16.2"
   },
   "scripts": {
