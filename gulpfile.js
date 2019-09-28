@@ -22,8 +22,7 @@ const autoprefixer = require("autoprefixer");
 const browsersync = require("browser-sync").create();
 const cleanCSS = require("gulp-clean-css");
 const data = require('gulp-data');
-var babel = require('gulp-babel');
-const print = require('gulp-print').default;
+const to5 = require('gulp-6to5');
 
 let config = require('./config.json');
 
@@ -210,10 +209,9 @@ function requireUncached(module) {
 }
 
 function es6 () {
-    return gulp.src('js/*.js')
-        .pipe(print())
-        .pipe(babel())
-        .pipe(gulp.dest('dist/assets/js'));
+    return gulp.src('js/**/*.js')
+    .pipe(to5())
+    .pipe(gulp.dest('dist/assets/js'));
 }
 
 // TO DO: Run template changes and sass changes individually
@@ -225,7 +223,7 @@ function watchChanges() {
     // gulp.watch([PRE_ALL_TEMPLATES(EXT_HTML), 'config.json'],['templates']);
     gulp.watch(SASS_PATH, gulp.series('sass'));
     gulp.watch([SVGS_ALL_PATH, 'config.json'], gulp.series('generate-svg'));
-    gulp.watch('./js', gulp.series('es6'))
+    gulp.watch('js', gulp.series('es6'))
 }
 
 // Tasks
