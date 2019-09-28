@@ -22,6 +22,8 @@ const autoprefixer = require("autoprefixer");
 const browsersync = require("browser-sync").create();
 const cleanCSS = require("gulp-clean-css");
 const data = require('gulp-data');
+var babel = require('gulp-babel');
+const print = require('gulp-print').default;
 
 let config = require('./config.json');
 
@@ -207,6 +209,13 @@ function requireUncached(module) {
     return require(module);
 }
 
+function es6 () {
+    return gulp.src('js/*.js')
+        .pipe(print())
+        .pipe(babel())
+        .pipe(gulp.dest('dist/assets/js'));
+}
+
 // TO DO: Run template changes and sass changes individually
 function watchChanges() {
     gulp.watch(
@@ -216,15 +225,17 @@ function watchChanges() {
     // gulp.watch([PRE_ALL_TEMPLATES(EXT_HTML), 'config.json'],['templates']);
     gulp.watch(SASS_PATH, gulp.series('sass'));
     gulp.watch([SVGS_ALL_PATH, 'config.json'], gulp.series('generate-svg'));
+    gulp.watch('./js', gulp.series('es6'))
 }
 
 // Tasks
 gulp.task('sass', sassChange);
 gulp.task('templates', preTemplateChanges);
 gulp.task('generate-svg', generateSvg);
+gulp.task('es6', es6)
 // gulp.task('live', server);
 
 // Dev Tasks
-gulp.task('run', gulp.series('generate-svg', 'sass', 'templates'));
+gulp.task('run', gulp.series('generate-svg', 'sass', 'templates', 'es6'));
 gulp.task('watch', gulp.series('run', watchChanges));
 gulp.task("default", gulp.series('run', gulp.parallel('watch', browserSync)));

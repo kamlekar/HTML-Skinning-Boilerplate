@@ -3,13 +3,23 @@
     "version": "0.8.4",
     "description": "This setup is starter kit for HTML developers and provide features to develop HTML faster.",
     "main": "gulpfile.js",
-    "dependencies": {},
+    "dependencies": {
+        "@babel/core": "^7.6.2",
+        "gulp-print": "^5.0.2"
+    },
     "devDependencies": {
-        "@prettier/plugin-php": "^0.9.0",
+        "@babel/cli": "^7.0.0-beta.40",
+        "@babel/core": "^7.1.6",
+        "@babel/preset-env": "^7.1.6",
+        "@babel/preset-react": "^7.0.0",
         "autoprefixer": "^9.3.1",
-        "browser-sync": "^2.26.3",
-        "gulp": "^4.0.0",
+        "babel-loader": "^8.0.4",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-es2015": "^6.24.1",
+        "browser-sync": "^2.26.7",
+        "gulp": "^4.0.2",
         "gulp-autoprefixer": "^6.0.0",
+        "gulp-babel": "^8.0.0",
         "gulp-cheerio": "^0.6.2",
         "gulp-clean-css": "^4.0.0",
         "gulp-concat": "^2.6.0",
@@ -18,14 +28,14 @@
         "gulp-folders": "^1.1.0",
         "gulp-merge-media-queries": "^0.2.1",
         "gulp-nunjucks": "^4.0.0",
-        "gulp-nunjucks-render": "^2.2.2",
+        "gulp-nunjucks-render": "^2.2.3",
         "gulp-path": "^2.0.1",
         "gulp-plumber": "^1.2.1",
         "gulp-postcss": "^6.4.0",
         "gulp-prettify": "^0.5.0",
         "gulp-pug": "^4.0.1",
         "gulp-rename": "^1.2.2",
-        "gulp-sass": "^2.0.4",
+        "gulp-sass": "^3.0.0",
         "gulp-sourcemaps": "^1.6.0",
         "gulp-svgmin": "^2.1.0",
         "gulp-svgstore": "^6.1.1",
@@ -34,6 +44,11 @@
         "postcss-uncss": "^0.16.1",
         "prettier": "^1.15.3",
         "uncss": "^0.16.2"
+    },
+    "query": {
+        "presets": [
+            "es2015"
+        ]
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
