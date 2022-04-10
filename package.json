@@ -5,11 +5,9 @@
     "main": "gulpfile.js",
     "dependencies": {},
     "devDependencies": {
-        "@prettier/plugin-php": "^0.9.0",
-        "autoprefixer": "^9.3.1",
+        "@prettier/plugin-php": "^0.18.4",
         "browser-sync": "^2.26.3",
         "gulp": "^4.0.0",
-        "gulp-autoprefixer": "^6.0.0",
         "gulp-cheerio": "^0.6.2",
         "gulp-clean-css": "^4.0.0",
         "gulp-concat": "^2.6.0",
@@ -33,7 +31,7 @@
         "postcss-clean": "^1.1.0",
         "postcss-uncss": "^0.16.1",
         "prettier": "^1.15.3",
-        "uncss": "^0.16.2"
+        "uncss": "^0.17.3"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -57,5 +55,9 @@
     "bugs": {
         "url": "https://github.com/kamlekar/HTML-Skinning-Boilerplate/issues"
     },
-    "homepage": "https://github.com/kamlekar/HTML-Skinning-Boilerplate#readme"
+    "homepage": "https://github.com/kamlekar/HTML-Skinning-Boilerplate#readme",
+    "browserslist": [
+        "ie > 9",
+        "safari > 6"
+    ]
 }

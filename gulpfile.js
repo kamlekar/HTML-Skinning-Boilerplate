@@ -18,7 +18,6 @@ const rename = require('gulp-rename');
 const uncss = require('postcss-uncss');
 const clean = require('postcss-clean');
 const plumber = require('gulp-plumber');
-const autoprefixer = require("autoprefixer");
 const browsersync = require("browser-sync").create();
 const cleanCSS = require("gulp-clean-css");
 const data = require('gulp-data');
@@ -101,22 +100,12 @@ function generateSvg() {
 /*****************************************/
 // TO DO: Keep the compiled css code in expanded mode
 function sassChange() {
-    var processors = [
-        // uncss({
-        //     html: ['dist/**/*.html']
-        // }),
-        // clean(),
-        autoprefixer({
-            browsers: ['ie > 9', 'safari > 6']
-        })
-    ];
     return gulp.src(SASS_PATH)
         .pipe(plumber())
         .pipe(sourcemaps.init())
         // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
         .pipe(sass({ outputStyle: 'expanded', sourceComments: false }))
         .pipe(mmq({ log: true }))
-        .pipe(postcss(processors))
         // For mapping: Don't mention the path to make the mapping inline
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest(CSS_PATH))
@@ -155,9 +144,10 @@ function preTemplateChanges() {
             // use !(_)*.html to exclude rendering of the files with prefix "_" (underscore)
             return gulp.src(PRE_MAIN_TEMPLATES(ext))
                 .pipe(plumber())
-                .pipe(data(function(file){
-                    var relative_path = file.path.replace(__dirname + "\\templates", "");
-                    var count = relative_path.split("\\").length - 2;
+                .pipe(data(function (file) {
+                    var splitToken = "/";
+                    var relative_path = file.path.replace(__dirname + "/templates", "");
+                    var count = relative_path.split(splitToken).length - 2;
                     var relative_assets_path = Array(count).fill("../").join("") + ASSETS_PATH;
                     // console.log(relative_assets_path);
 
