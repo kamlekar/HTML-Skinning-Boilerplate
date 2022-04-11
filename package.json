@@ -3,11 +3,10 @@
     "version": "0.8.4",
     "description": "This setup is starter kit for HTML developers and provide features to develop HTML faster.",
     "main": "gulpfile.js",
-    "dependencies": {},
     "devDependencies": {
         "@prettier/plugin-php": "^0.18.4",
         "browser-sync": "^2.26.3",
-        "gulp": "^4.0.0",
+        "gulp": "^4.0.2",
         "gulp-cheerio": "^0.6.2",
         "gulp-clean-css": "^4.0.0",
         "gulp-concat": "^2.6.0",
@@ -15,7 +14,7 @@
         "gulp-data": "^1.3.1",
         "gulp-folders": "^1.1.0",
         "gulp-merge-media-queries": "^0.2.1",
-        "gulp-nunjucks": "^4.0.0",
+        "gulp-nunjucks": "^3.1.1",
         "gulp-nunjucks-render": "^2.2.2",
         "gulp-path": "^2.0.1",
         "gulp-plumber": "^1.2.1",
@@ -25,14 +24,11 @@
         "gulp-rename": "^1.2.2",
         "gulp-sass": "^5.1.0",
         "gulp-sourcemaps": "^1.6.0",
-        "gulp-svgmin": "^2.1.0",
+        "gulp-svgmin": "^4.1.0",
         "gulp-svgstore": "^6.1.1",
-        "gulp-util": "^3.0.7",
         "postcss-clean": "^1.1.0",
-        "postcss-uncss": "^0.16.1",
         "prettier": "^1.15.3",
-        "sass": "^1.50.0",
-        "uncss": "^0.17.3"
+        "sass": "^1.50.0"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
